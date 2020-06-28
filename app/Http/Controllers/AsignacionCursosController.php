@@ -58,7 +58,7 @@ class AsignacionCursosController extends Controller
 
             $dateValue = strtotime( Ciclo::find($item->ciclo_id)->fecha_inicio);                     
             $yr = date("Y", $dateValue) ." ";
-            $item['año'] = $yr;
+            $item['aï¿½o'] = $yr;
 
             $item['nombreCurso'] = Cursos::find($item->curso_id)->nombre_cur;
             $item['nombreCiclo'] = Ciclo::find($item->ciclo_id)->ciclo.'('.$yr.')';
@@ -118,6 +118,7 @@ class AsignacionCursosController extends Controller
 
 
     $per = $request->get('profesorPermanente_id');
+    $per2 = $request->get('segundoProfesorPermanente_id');
     $sup = $request->get('profesorSuplente_id');
     if($per!="Ninguno"){
         CursoProfesor::create([
@@ -127,6 +128,17 @@ class AsignacionCursosController extends Controller
             'profesor_id' => $data['profesorPermanente_id']
         ]);
     }
+
+
+    if($per2!="Ninguno"){
+        CursoProfesor::create([
+            'tipo_asingnacion' => 'P2',
+            'estado' => 'A',
+            'nrc_id' => $nrc_id['id'],
+            'profesor_id' => $data['segundoProfesorPermanente_id']
+        ]);
+    }
+
     if($sup!="Ninguno"){
         CursoProfesor::create([
             'tipo_asingnacion' => 'T',
@@ -135,6 +147,8 @@ class AsignacionCursosController extends Controller
             'profesor_id' => $data['profesorSuplente_id']
         ]);
     }
+
+
 
 
 
@@ -157,19 +171,29 @@ class AsignacionCursosController extends Controller
         $profesores = Profesores::get();
 
         $profPermanente = CursoProfesor::where('nrc_id','=',$grupoCurso->id)->where('tipo_asingnacion','=','P')->first();
+        $segundoProfPermanente = CursoProfesor::where('nrc_id','=',$grupoCurso->id)->where('tipo_asingnacion','=','P2')->first();
         $profSuplente = CursoProfesor::where('nrc_id','=',$grupoCurso->id)->where('tipo_asingnacion','=','T')->first();
+        
         if($profPermanente!=null){
             $profe = Profesores::find($profPermanente->profesor_id);
         }else{
             $profe=null;
         }
+
+
+        if($segundoProfPermanente!=null){
+            $segundoProfe = Profesores::find($segundoProfPermanente->profesor_id);
+        }else{
+            $segundoProfe=null;
+        }
+
         if($profSuplente!=null){
             $profeT = Profesores::find($profSuplente->profesor_id);
         }else{
              $profeT=null;
         }
-        //dd($profeT);
-        return view('asignacioncursos.edit',compact('nrc','profesores','ciclos','grupos','cursos','grupoCurso','profe','profeT'));
+        //dd($segundoProfPermanente);
+        return view('asignacioncursos.edit',compact('nrc','profesores','ciclos','grupos','cursos','grupoCurso','profe','profeT','segundoProfe'));
 
     }
 
@@ -218,13 +242,14 @@ class AsignacionCursosController extends Controller
         //dd($grupoCurso->id);
         
         $profPermanente = CursoProfesor::where('nrc_id','=',$grupoCurso->id)->where('tipo_asingnacion','=','P')->first();
-
+        $segundoProfPermanente = CursoProfesor::where('nrc_id','=',$grupoCurso->id)->where('tipo_asingnacion','=','P2')->first();
         $profSustituto = CursoProfesor::where('nrc_id','=',$grupoCurso->id)->where('tipo_asingnacion','=','T')->first();
 
         //$profPermanente->profesor_id = $request['profesorPermanente_id'];*/
 
         //dd($profPermanente);
         $per = $request->get('profesorPermanente_id');
+        $per2 = $request->get('segundoProfesorPermanente_id');
         $sup = $request->get('profesorSuplente_id');
 
        
@@ -247,6 +272,27 @@ class AsignacionCursosController extends Controller
         else{
             if($profPermanente != null){ $profPermanente->delete(); };
         }
+
+        if($per2 !="Ninguno"){
+            if($profPermanente != null){ 
+                DB::table('siplac_curso_profesor')
+                ->where('nrc_id', $grupoCurso->id)
+                ->where('tipo_asingnacion', 'P')
+                ->update(['profesor_id' => $data['segundoProfesorPermanente_id']]);
+            }
+            else{
+                CursoProfesor::create([
+                    'tipo_asingnacion' => 'P2',
+                    'estado' => 'A',
+                    'nrc_id' => $grupoCurso->id,
+                    'profesor_id' => $data['profesorPermanente_id']
+                ]);
+            }
+        }
+        else{
+            if($segundoProfPermanente != null){ $profPermanente->delete(); };
+        }
+        
         
         if($sup!="Ninguno"){
             if($profSustituto != null){

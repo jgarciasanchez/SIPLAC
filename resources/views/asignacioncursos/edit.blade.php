@@ -68,6 +68,20 @@
 									</div>
 									&nbsp
 
+									<div class="form-group">
+										{!! Form::label('SegundoProfesorPermanente','Segundo Profesor Permanente') !!}
+										<select name="segundoProfesorPermanente_id" id="segundoProfesorPermanente_id" class="form-control">
+											@if ($segundoProfe!=null)
+											<option value={{$segundoProfe->id}}>{{$segundoProfe->nombre1.' '.$segundoProfe->apellido1.' '.$segundoProfe->apellido2}}</option>
+											@endif
+											<option value="Ninguno" >Sin Asignar</option>
+											@foreach ($profesores as $item)
+											<option value={{$item->id}}>{{$item->nombre1.' '.$item->apellido1.' '.$item->apellido2}}</option>
+											@endforeach
+										</select>
+									</div>
+									&nbsp
+
 
 									<div class="form-group">
 										{!! Form::label('ProfesorSuplente','Profesor Suplente') !!}
