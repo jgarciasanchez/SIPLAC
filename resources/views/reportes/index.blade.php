@@ -23,6 +23,7 @@
 					<table id="profesoresDataReportes" class="table table-hover table-striped" data-maintain-meta-data="true">
 						<thead class="thead-dark">
 							<tr>
+								<th scope="row"></th>
 								<th scope="row">Nombre</th>
 								<th scope="row">Primer Apellido</th>
 								<th scope="row">Segundo Apellido</th>
@@ -33,6 +34,9 @@
 						<tbody>
 							@foreach ($list as $item)
 							<tr>
+								<td>
+									<input type="checkbox" id="{{ $item->id }}">
+								</td>
 								<td>{{ $item->nombre1}}</td>
 								<td>{{ $item->apellido1 }}</td>
 								<td>{{ $item->apellido2 }}</td>
@@ -67,48 +71,56 @@
 			null,
 			null,
 			null,
-			{ "width": "10%" }
-  		],
-		select: true,
+			null,
+			{
+				"width": "10%"
+			}
+		],
+		// select: true,
 		"sScrollX": "100%",
-    	"sScrollXInner": "100%",
+		"sScrollXInner": "100%",
 	});
+
+	var table = $('#profesoresDataReportes').DataTable();
+ 
+    $('#profesoresDataReportes tbody').on( 'click', 'tr', function () {
+        $(this).toggleClass('selected');
+    } );
+
+
 
 	$('#button1').click(function() {
 		var ids = $.map(table.rows('.selected').data(), function(item) {
-			return item[3]
+			return item[4]
 		});
-		if(ids[0] != null){
+		if (ids[0] != null) {
 			window.location.href = "{{url('infoReporte')}}" + "/" + ids + "/" + 1 + "/" + 1;
 		}
 	});
 	$('#button2').click(function() {
-		var ids = null;
-		ids = $.map(table.rows('.selected').data(), function(item) {
-			return item[3]
+		var ids = $.map(table.rows('.selected').data(), function(item) {
+			return item[4]
 		});
-		if(ids[0] != null){
+		if (ids[0] != null) {
 			window.location.href = "{{url('infoReporte')}}" + "/" + ids + "/" + 1 + "/" + 2;
 		}
 	});
 	$('#button3').click(function() {
 		var ids = $.map(table.rows('.selected').data(), function(item) {
-			return item[3]
+			return item[4]
 		});
-		if(ids[0] != null){
+		if (ids[0] != null) {
 			window.location.href = "{{url('infoReporte')}}" + "/" + ids + "/" + 1 + "/" + 3;
 		}
 	});
 	$('#button4').click(function() {
 		var ids = $.map(table.rows('.selected').data(), function(item) {
-			return item[3]
+			return item[4]
 		});
-		if(ids[0] != null){
+		if (ids[0] != null) {
 			window.location.href = "{{url('infoReporte')}}" + "/" + ids + "/" + 1 + "/" + 4;
-		} 
-		
-		
-		
+		}
+
 	});
 </script>
 
