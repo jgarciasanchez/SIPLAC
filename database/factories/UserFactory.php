@@ -77,6 +77,7 @@ $factory->define(Profesores::class, function (Faker $faker) {
              'are_id' => AreasAcademicas::inRandomOrder()->value('id') ?: factory(AreasAcademicas::class),
              'fecha_apertura' => $faker->date($format = 'Y-m-d', $max = 'now'),
              'fecha_cierre' => $faker->date($format = 'Y-m-d', $max = 'now'),
+             'grado' => "I",
              'estado' => 'A'
           ];
  });

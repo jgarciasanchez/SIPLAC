@@ -2,6 +2,35 @@
 
 @section('content')
 
+<?php 
+// Demonstrate how to declare 
+// global variable 
+  
+// Declaring global variable 
+/*$x = "Geeks"; 
+$y = "for"; 
+$z = "Geeks"; */
+$a = 5; 
+$b = 10; 
+  
+function concatenate() { 
+    // Using global keyword 
+    global $x, $y, $z; 
+    return $x.$y.$z; 
+} 
+  
+function add() { 
+    // Using GLOBALS['var_name'] 
+    $GLOBALS['x'] = $GLOBALS['y'] + $GLOBALS['z']; 
+} 
+  
+// Print result 
+echo concatenate(); 
+echo"\n"; 
+add(); 
+echo $GLOBALS['x']; 
+?> 
+
 <html>
 <head>
 <meta charset='utf-8' />
@@ -108,6 +137,8 @@
    {!!Form::open([''])!!}
   <div class="form-group">
       <script language="javascript" type="text/javascript"> // INSERTA EN ELSJON AL EJECUTAR LA VISTA DE FORMA QUE FULLCALENDAR LO USE
+
+          console.log("AAAAAAAAAAAsAAAAAAAAAAAAAAAAAAAA"+ $('#prueba').text());
           var obj = <?php echo json_encode($horarios); ?>;
           var horario = <?php echo json_encode($HorariosTodos); ?>;
           insertJson(obj,horario);
