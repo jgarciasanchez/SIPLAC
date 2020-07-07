@@ -206,7 +206,7 @@ class RolesAndPermissionTableSeeder extends Seeder
             'second_name'      =>'Ver' ,]);
         Permission::create(
             ['name'      =>'infoReporte.infoReporte',
-            'description'       =>'Ver informacion de reporte',
+            'description'       =>'Generar el reporte con su información y puede descargar.',
             'second_name'       =>'Informacion',]);
         Permission::create(
             ['name'      =>'excel.excel',
@@ -216,6 +216,17 @@ class RolesAndPermissionTableSeeder extends Seeder
             ['name'      =>'reportes.index',
             'description'       =>'Navegar por los reportes',
             'second_name'       =>'Navegar',]);
+
+
+        Permission::create(
+            ['name'      =>'updateReporte2.updateReporte2',
+            'description'       =>'Actualizar los reportes.',
+            'second_name'       =>'Actualizar',]);
+        Permission::create(
+            ['name'      =>'semanal.semanal',
+            'description'       =>'Descargar el horario',
+            'second_name'       =>'Horario descargar',]);
+
 
 
         //permiso de roles#####################################################
@@ -444,6 +455,7 @@ class RolesAndPermissionTableSeeder extends Seeder
             'description'      =>'Listar los horario reporte',
             'second_name'      =>'Listar Horarios',]);
 
+
         //Administrador rol
         $admin = Role::create(
             ['name' => 'Admin',
@@ -551,6 +563,8 @@ class RolesAndPermissionTableSeeder extends Seeder
        		'infoReporte.infoReporte',
        		'excel.excel',
        		'reportes.index',
+            'updateReporte2.updateReporte2',
+            'semanal.semanal',
 
             'areaacademica.index',
             'areaacademica.show',
@@ -728,6 +742,8 @@ class RolesAndPermissionTableSeeder extends Seeder
             'infoReporte.infoReporte',
             'excel.excel',
             'reportes.index',
+            'updateReporte2.updateReporte2',
+            'semanal.semanal',
 
             'areaacademica.index',
             'areaacademica.show',
@@ -826,6 +842,8 @@ class RolesAndPermissionTableSeeder extends Seeder
             'infoReporte.infoReporte',
             'excel.excel',
             'reportes.index',
+            'updateReporte2.updateReporte2',
+            'semanal.semanal',
 
             'areaacademica.index',
             'areaacademica.show',
@@ -939,6 +957,8 @@ class RolesAndPermissionTableSeeder extends Seeder
             'infoReporte.infoReporte',
             'excel.excel',
             'reportes.index',
+            'updateReporte2.updateReporte2',
+            'semanal.semanal',
 
             'areaacademica.index',
             'areaacademica.show',

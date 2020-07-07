@@ -10,9 +10,13 @@
 				Lista completa(Excel)
 			</a>
 			<button class="mx-2" id="button1">Reporte Simple</button>
+
 			<button class="mx-2" id="button2">Reporte medio</button>
+
 			<button class="mx-2" id="button3">Reporte completo</button>
+
 			<button class="mx-2" id="button4">Formulario Programas</button>
+
 			@endcan
 		</div>
 	</div>
@@ -47,9 +51,11 @@
 											Ver reporte
 										</button>
 										<div class="dropdown-menu" aria-labelledby="ver">
-											<a class="dropdown-item" href="{{ route('infoReporte', [$item->cedula, 1, 1]) }}">Simple</a>
-											<a class="dropdown-item" href="{{ route('infoReporte', [$item->cedula, 1, 2]) }}">Medio</a>
-											<a class="dropdown-item" href="{{ route('infoReporte', [$item->cedula, 1, 3]) }}">Completo</a>
+											@can('infoReporte.infoReporte')
+												<a class="dropdown-item" href="{{ route('infoReporte', [$item->cedula, 1, 1]) }}">Simple</a>
+												<a class="dropdown-item" href="{{ route('infoReporte', [$item->cedula, 1, 2]) }}">Medio</a>
+												<a class="dropdown-item" href="{{ route('infoReporte', [$item->cedula, 1, 3]) }}">Completo</a>
+											@endcan
 										</div>
 									</div>
 								</td>
