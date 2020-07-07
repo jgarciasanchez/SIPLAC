@@ -60,6 +60,15 @@ class Profesores extends Model
             ->where('siplac_profesores.id', '=', "$id");
     }
 
+    public function scopecursoJoinPID($query, $id)
+    {
+        return $query->select('siplac_profesores.id as prof_id', 'siplac_grupos_cursos.curso_id as cur_id')
+            ->leftJoin('siplac_curso_profesor', 'siplac_curso_profesor.profesor_id', '=', 'siplac_profesores.id')
+            ->join('siplac_grupos_cursos', 'siplac_grupos_cursos.id', '=', 'siplac_curso_profesor.nrc_id')
+            ->where('siplac_profesores.id', '=', "$id")
+            ->where('siplac_curso_profesor.tipo_asingnacion', '=', 'P');
+    }
+
     public function scopejoinProyectos($query)
     {
         return $query->select('siplac_profesores.id', 'siplac_profesores.estado', 'siplac_profesores.nombre1', 'siplac_profesores.apellido1', 'siplac_profesores.apellido2', 'siplac_profesores.cedula', 'siplac_proyectos_profesores.proyecto_id as proy_id')

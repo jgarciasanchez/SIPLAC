@@ -218,7 +218,7 @@ class ReportesController extends Controller
         return response()->download(storage_path('TestWordFile.docx'));
     }
 
-    public function datos($ids)
+    public function datos($ids, $permanente)
     {
         $idsA = explode(",", $ids);
         $datos = array();
@@ -252,14 +252,26 @@ class ReportesController extends Controller
             }
             array_push($arrayProyectos, $proyectos);
             $band = false;
-            $listProfC = Profesores::cursoJoinID($id)->paginate(99999999);
+            if ($permanente) {
+                $listProfC = Profesores::cursoJoinPID($id)->paginate(99999999);
+                // dd($listProfC);
+            } else {
+                // dd("false");
+                $listProfC = Profesores::cursoJoinID($id)->paginate(99999999);
+                // dd($listProfC);
+            }
+
             foreach ($listProfC as $item) {
-                if ($item->cur_id != null)
+                if ($item->cur_id != null) {
                     $band = true;
+                }
             }
             if ($band) {
-                $cursos = cursoProfesor::id($id)->paginate(99999999);
-                // dd($cursos);
+                if ($permanente) {
+                    $cursos = cursoProfesor::pid($id)->paginate(99999999);
+                } else {
+                    $cursos = cursoProfesor::id($id)->paginate(99999999);
+                }
                 foreach ($cursos as $item) {
                     $jornadaC += $item->horas_contacto;
                 }
@@ -335,7 +347,13 @@ class ReportesController extends Controller
 
     public function infoReporte(Request $request, $ids, $op, $tp)
     {
-        $arrayDatos = $this->datos($ids);
+        if ($tp == 1) {
+            // dd("false");
+            $arrayDatos = $this->datos($ids, true);
+        } else {
+            $arrayDatos = $this->datos($ids, false);
+        }
+
         $profesores = $arrayDatos[0];
         $arrayCursos = $arrayDatos[1];
         $arrayProyectos = $arrayDatos[2];
@@ -535,9 +553,6 @@ class ReportesController extends Controller
                         }
                     }
                 }
-
-
-
                 $objectWriter = IOFactory::createWriter($phpWord, 'Word2007');
                 try {
                     $objectWriter->save(storage_path('TestWordFile.docx'));
@@ -718,6 +733,9 @@ class ReportesController extends Controller
 
         return response()->download(storage_path('TestWordFile.docx'));
     }
+
+
+
 
     public function excel()
     {
