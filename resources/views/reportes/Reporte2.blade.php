@@ -109,7 +109,13 @@
                                                     @else
                                                         <td></td>
                                                     @endif
-                                                    <td>{{ $item->tipo_asingnacion }}</td>
+                                                    @if($item->tipo_asingnacion == "P")
+                                                        <td>Plaza permanente</td>
+                                                    @elseif($item->tipo_asingnacion == "P2")
+                                                        <td>Plaza permanente 2</td>
+                                                    @else 
+                                                        <td>Plaza temporal</td>
+                                                    @endif
                                                 </tr>
                                             @endforeach
                                         @endif

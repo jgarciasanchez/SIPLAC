@@ -13,6 +13,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 use App\Exceptions\Handler;
+use DB;
+
+
 class CicloController extends Controller
 {
     /**
@@ -65,7 +68,9 @@ class CicloController extends Controller
      */
     public function store(Request $request)
     {
-	//reglas de validacion
+    //reglas de validacion
+    DB::table('siplac_ciclo')
+    ->update(['estado' => 'I']);
         Validator::make($request->all(), [
             'ciclo' => ['required', 'int','max:3'],
             'fecha_inicio' => ['required', 'string', 'max:10'],
@@ -117,7 +122,8 @@ class CicloController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+    DB::table('siplac_ciclo')
+    ->update(['estado' => 'I']);
 	$ciclo = Ciclo::find($id);
         //reglas de validacion
         Validator::make($request->all(), [
@@ -147,9 +153,12 @@ class CicloController extends Controller
     public function destroy($id)
     {
          //metodo crea la bitacora
-        $ciclo = Ciclo::find($id);
+         $ciclo = Ciclo::find($id);
         $data['estado'] = '';
         $accion = '';
+        DB::table('siplac_ciclo')
+        ->update(['estado' => 'I']);
+
        if($ciclo->estado=='A'){
             $data['estado'] = 'I';
             $accion = 'desactivado';

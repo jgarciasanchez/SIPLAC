@@ -39,10 +39,10 @@
 									{!! Form::open(['route'=>['ciclo.destroy',$item->id],'method'=>'POST']) !!}
 									@csrf
 									{!! Form::hidden('_method', 'DELETE') !!}
-									@if ($item->estado=='A')
-									{!! Form::submit('Desactivar', ['class' => 'btn btn-danger btn-sm'])!!}
+									@if ($item->estado=='I')
+									{!! Form::submit('No Activo', ['class' => 'btn btn-danger btn-sm'])!!}
 									@else
-									{!! Form::submit('Activar', ['class' => 'btn btn-success btn-sm'])!!}
+									{!! Form::submit('Activo', ['class' => 'btn btn-success btn-sm'])!!}
 									@endif
 									{!! Form::close() !!}
 									@endcan

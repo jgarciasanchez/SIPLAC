@@ -25,7 +25,7 @@ class ReportesController extends Controller
     public function index(Request $request)
     {
         $list = Profesores::all()->where('estado', '=', 'A');
-        return view('reportes.index', compact('list'));
+        return view('Reportes.index', compact('list'));
     }
 
     public function create($id)
@@ -37,7 +37,7 @@ class ReportesController extends Controller
         dd($list);
         // $list = Reportes::nombre("Redes")
         //     ->paginate(10);
-        $pdf = PDF::loadView('reportes.reporte2', compact('list'));
+        $pdf = PDF::loadView('Reportes.reporte2', compact('list'));
         return $pdf->stream();
     }
 
@@ -69,6 +69,7 @@ class ReportesController extends Controller
     {
         $horarios = session("horario");
 
+        // dd($horario);
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $sectionStyle = array(
             'orientation' => 'landscape',
@@ -124,7 +125,7 @@ class ReportesController extends Controller
                 // dd($nrc, $horarioS, $horario);
             } else {
                 // dd($nrc, $aula, $horarioS);
-            array_push($horarioAux, $carrera);
+                array_push($horarioAux, $carrera);
                 array_push($horarioAux, $nrc);
                 array_push($horarioAux, $nivel);
                 array_push($horarioAux, $codigo);
@@ -161,7 +162,7 @@ class ReportesController extends Controller
             array_push($horarioAux, $profesor);
             array_push($lista, $horarioAux);
         }
-        
+
         //  dd($lista);
 
         $grupoActual = 0;
@@ -329,7 +330,7 @@ class ReportesController extends Controller
         }
         $count = count($profesores);
         // dd($info);
-        return view('reportes.reporte2', compact('arrayCursos', 'arrayProyectos', 'profesores', 'jornadas', 'ids', 'info'));
+        return view('Reportes.reporte2', compact('arrayCursos', 'arrayProyectos', 'profesores', 'jornadas', 'ids', 'info'));
     }
 
     public function infoReporte(Request $request, $ids, $op, $tp)
@@ -344,14 +345,14 @@ class ReportesController extends Controller
         $count = count($profesores);
         if ($op == 1) {
             if ($tp == 1) {
-                return view('reportes.Reporte1', compact('arrayCursos', 'arrayProyectos', 'profesores', 'jornadas', 'ids'));
+                return view('Reportes.reporte1', compact('arrayCursos', 'arrayProyectos', 'profesores', 'jornadas', 'ids'));
             } else if ($tp == 2) {
-                return view('reportes.Reporte2', compact('arrayCursos', 'arrayProyectos', 'profesores', 'jornadas', 'ids', 'info'));
+                return view('Reportes.reporte2', compact('arrayCursos', 'arrayProyectos', 'profesores', 'jornadas', 'ids', 'info'));
             } else if ($tp == 3) {
                 // dd("vista");
-                return view('reportes.Reporte3', compact('arrayCursos', 'arrayProyectos', 'profesores', 'jornadas'));
+                return view('Reportes.reporte3', compact('arrayCursos', 'arrayProyectos', 'profesores', 'jornadas'));
             } else {
-                return view('reportes.Reporte4', compact('arrayCursos', 'profesores', 'ids'));
+                return view('Reportes.reporte4', compact('arrayCursos', 'profesores', 'ids'));
             }
         } elseif ($op == "2") {
             if ($tp == "1") {
@@ -626,7 +627,13 @@ class ReportesController extends Controller
                             } else {
                                 $row->addCell(2000);
                             }
-                            $table->addCell(2000)->addText($item->tipo_asingnacion);
+                            if ($item->tipo_asingnacion == "P") {
+                                $table->addCell(2000)->addText("Plaza permanente");
+                            } else if ($item->tipo_asingnacion == "P2") {
+                                $table->addCell(2000)->addText("Plaza permanente 2");
+                            } else {
+                                $table->addCell(2000)->addText("Plaza suplente");
+                            }
                             $band = false;
                         } else {
                             $row = $table->addRow();
@@ -645,7 +652,11 @@ class ReportesController extends Controller
                             } else {
                                 $row->addCell(2000);
                             }
-                            $table->addCell(2000)->addText($item->tipo_asingnacion);
+                            if ($item->tipo_asingnacion == "P") {
+                                $table->addCell(2000)->addText("Permanente");
+                            } else {
+                                $table->addCell(2000)->addText("Suplente");
+                            }
                         }
                     }
                 }
