@@ -7,7 +7,7 @@
 	<div class="row pt-5">
 
 		<div class="">
-			<a class="btn btn-primary" href="{{ route('asignacioncursos.create') }}">Asignar Nuevo Curso</a>
+			@can('asignacioncursos.create')<a class="btn btn-primary" href="{{ route('asignacioncursos.create') }}">Asignar Nuevo Curso</a>@endcan
 		</div>
 
 		<div class="ml-auto">
