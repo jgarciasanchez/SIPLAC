@@ -11,7 +11,7 @@ class UsuarioTable extends Seeder
      */
        public function run()
     {
-          //sona de creacion de usuarios por defecto
+      //sona de creacion de usuarios por defecto
       App\User::create([
           'nombre' => 'UnaAdmin2020',
           'usuario' => 'UnaAdmin2020',
@@ -51,7 +51,7 @@ class UsuarioTable extends Seeder
           'remember_token' => Str::random(10)
         ]);
     //Generar usuarios radom
-	   factory(App\User::class,50)->create();
+	   // factory(App\User::class,50)->create();
 
   	}
 }

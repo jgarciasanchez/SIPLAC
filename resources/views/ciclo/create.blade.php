@@ -11,8 +11,12 @@
 							<h5 >Nuevo ciclo</h5>
 						</div>
 							<div class="form-group">
-								{!! Form::label('ciclo','ciclo') !!}
-								{!! Form::text('ciclo',old('ciclo'),['class'=>'form-control','placeholder'=> 'Ciclo(1,2,3)']) !!}
+								{!! Form::label('ciclo','Ciclo') !!}
+								<select name="ciclo" class="form-control">
+									<option selected="selected" value="1">Ciclo 1</option>	
+									<option selected="selected" value="2">Ciclo 2</option>	
+									<option selected="selected" value="3">Verano 3</option>	
+								</select>
 							</div>
 							<div class="form-group">
 								{!! Form::label('fecha_inicio','Fecha de inicio') !!}

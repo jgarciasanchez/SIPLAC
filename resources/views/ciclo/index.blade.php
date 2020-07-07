@@ -27,7 +27,7 @@
 						<tbody>
 							@foreach ($list as $item)
 							<tr>
-								<td>{{ $item->ciclo}}</td>
+								<td>{{ 'Ciclo: '.$item->ciclo}}</td>
 								<td>{{ $item->fecha_inicio }}</td>
 								<td>{{ $item->fecha_fin }}</td>
 								<td class="form-inline">

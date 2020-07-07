@@ -390,6 +390,59 @@ class RolesAndPermissionTableSeeder extends Seeder
             'description'       =>'Puede desactivar algun curso asignado',
             'second_name'       =>'desactivar',]);
 
+        //permiso deListar Horarios#
+
+        Permission::create(
+            ['name'      =>'horario.index',
+            'description'=>'Se puede navegar por los horarios',
+            'second_name'=>'Navegar',]);
+        Permission::create(
+            ['name'      =>'horario.show',
+            'description'        =>'Ver los datos de los horarios',
+            'second_name'        =>'Ver']);
+        Permission::create(
+            ['name'      =>'horario.edit',
+            'description'       =>'Puede editar los datos de los horarios',
+            'second_name'       =>'Editar',]);
+        Permission::create(
+            ['name'      =>'horario.create',
+            'description'       =>'Puede crear nuevos horarios',
+            'second_name'       =>'Crear',]);
+        Permission::create(
+            ['name'      =>'horario.destroy',
+            'description'       =>'Puede desactivar los horarios',
+            'second_name'       =>'desactivar',]);
+        Permission::create(
+            ['name'      =>'listaHorarios.listaHorarios',
+            'description'      =>'Listar los horarios',
+            'second_name'      =>'Listar Horarios',]);
+
+        //permiso deListar Horarios 2#
+
+        Permission::create(
+            ['name'      =>'horario2.index',
+            'description'=>'Se puede navegar por los horario reporte',
+            'second_name'=>'Navegar',]);
+        Permission::create(
+            ['name'      =>'horario2.show',
+            'description'        =>'Ver los datos de los horario reporte',
+            'second_name'        =>'Ver']);
+        Permission::create(
+            ['name'      =>'horario2.edit',
+            'description'       =>'Puede editar los datos de los horario reporte',
+            'second_name'       =>'Editar',]);
+        Permission::create(
+            ['name'      =>'horario2.create',
+            'description'       =>'Puede crear nuevos horario reporte',
+            'second_name'       =>'Crear',]);
+        Permission::create(
+            ['name'      =>'horario2.destroy',
+            'description'       =>'Puede desactivar los horario reporte',
+            'second_name'       =>'desactivar',]);
+        Permission::create(
+            ['name'      =>'listaHorarios.listaHorarios2',
+            'description'      =>'Listar los horario reporte',
+            'second_name'      =>'Listar Horarios',]);
 
         //Administrador rol
         $admin = Role::create(
@@ -402,6 +455,21 @@ class RolesAndPermissionTableSeeder extends Seeder
             'usuarios.show',
             'usuarios.create',
             'usuarios.destroy',
+
+            'horario2.index',
+            'horario2.edit',
+            'horario2.show',
+            'horario2.create',
+            'horario2.destroy',
+            'listaHorarios.listaHorarios2',
+
+
+            'horario.index',
+            'horario.edit',
+            'horario.show',
+            'horario.create',
+            'horario.destroy',
+            'listaHorarios.listaHorarios',
 
             'asignacioncursos.index',
             'asignacioncursos.edit',
@@ -499,68 +567,194 @@ class RolesAndPermissionTableSeeder extends Seeder
 
         ]);
          //visita es solo para visualizar contenido
-        $visita = Role::create(['name' => 'visita']);
+        $visita = Role::create(['name' => 'visita','description' => 'El superadministrador']);
         $visita->givePermissionTo([
-            'profesores.index',
-            'profesores.show',
-            
-            'cursos.index',
-            'cursos.show',
-            
-            'aulas.index',
-            'aulas.show',
+            'horario2.index',
+            'horario2.show',
+            'listaHorarios.listaHorarios2',
 
-            'reportes.index',
+
+            'horario.index',
+            'horario.show',
+            'listaHorarios.listaHorarios',
+
+            'asignacioncursos.index',
+            'asignacioncursos.show',
+
+            'proyectos.index',
+            'proyectos.show',
+            'proyecto_busqueda',
+            'estadoProfesor',
+
+            'grupos.index',
+            'grupos.show',
+            'listaGrupos',
+
+            'cursosCarrera.index',
+            'cursosCarrera.show',
 
             'carrera.index',
             'carrera.show',
+            'listaCarreras',
+
+            'roles.index',
+            'roles.show' ,
+
+            'profesores.index',
+            'profesores.show',
+
+            'cursos.index',
+            'cursos.edit',
+            'cursos.show',
+            'gruposData',
+            'listaCursos',
+            'estadoGrupo',
+            'editRelations',
+            'estadoCarrera',
+            'next',
+            'carrerasData',
+
+            'aulas.index',
+            'aulas.show',
+
+            'bitacora.index',
+
+            'backups.index',
+            'backups.show' ,
+
+            'reporte1.reporte1',
+            'reporte.reporte' ,
+            'infoReporte.infoReporte',
+            'excel.excel',
+            'reportes.index',
 
             'areaacademica.index',
             'areaacademica.show',
+
+            'ciclo.index',
+            'ciclo.show',
+            'listaCiclo',
         ]);
         //rol de edicion 
-        $editor = Role::create(['name' => 'editor']);
+        $editor = Role::create(['name' => 'editor','description' => 'El superadministrador',]);
         $editor->givePermissionTo([
-            'profesores.index',
-            'profesores.show',
-            'profesores.edit',
-            
-            'cursos.index',
-            'cursos.show',
-            'cursos.edit',
-            
-            'aulas.index',
-            'aulas.show',
-            'aulas.edit',
+            'horario2.index',
+            'horario2.edit',
+            'horario2.show',
+            'listaHorarios.listaHorarios2',
 
+
+            'horario.index',
+            'horario.edit',
+            'horario.show',
+            'listaHorarios.listaHorarios',
+
+            'asignacioncursos.index',
+            'asignacioncursos.edit',
+            'asignacioncursos.show',
+
+            'proyectos.index',
+            'proyectos.show',
+            'proyectos.edit',
+            'proyecto_busqueda',
+            'estadoProfesor',
+
+            'grupos.index',
+            'grupos.edit',
+            'grupos.show',
+            'listaGrupos',
+
+            'cursosCarrera.index',
+            'cursosCarrera.edit',
+            'cursosCarrera.show',
 
             'carrera.index',
             'carrera.show',
             'carrera.edit',
             'listaCarreras',
 
-       		'reportes.index',
+            'roles.index',
+            'roles.show' ,
+            'roles.edit',
+
+            'profesores.index',
+            'profesores.edit',
+            'profesores.show',
+
+            'cursos.index',
+            'cursos.edit',
+            'cursos.show',
+            'gruposData',
+            'listaCursos',
+            'estadoGrupo',
+            'editRelations',
+            'estadoCarrera',
+            'next',
+            'carrerasData',
+
+            'aulas.index',
+            'aulas.show',
+            'aulas.edit',
+
+            'bitacora.index',
+
+            'backups.index',
+            'backups.show' ,
+            'backups.edit',
+
+            'reporte1.reporte1',
+            'reporte.reporte' ,
+            'infoReporte.infoReporte',
+            'excel.excel',
+            'reportes.index',
 
             'areaacademica.index',
             'areaacademica.show',
             'areaacademica.edit',
+
+            'ciclo.index',
+            'ciclo.edit',
+            'ciclo.show',
+            'listaCiclo',
         ]);
-        $creador = Role::create(['name' => 'creador']);
+        $creador = Role::create(['name' => 'creador','description' => 'El superadministrador']);
         $creador->givePermissionTo([
-            'profesores.index',
-            'profesores.show',
-            'profesores.edit',
-            'profesores.create',
-            
-            'cursos.index',
-            'cursos.show',
-            'cursos.create',
-            'cursos.edit',
-            
-            'aulas.index',
-            'aulas.show',
-            'aulas.edit',
-            'aulas.create',
+          'horario2.index',
+            'horario2.edit',
+            'horario2.show',
+            'horario2.create',
+            'listaHorarios.listaHorarios2',
+
+
+            'horario.index',
+            'horario.edit',
+            'horario.show',
+            'horario.create',
+            'listaHorarios.listaHorarios',
+
+            'asignacioncursos.index',
+            'asignacioncursos.edit',
+            'asignacioncursos.show',
+            'asignacioncursos.create',
+
+            'proyectos.create',
+            'proyectos.index',
+            'proyectos.show',
+            'proyectos.create',
+            'proyectos.edit',
+            'proyecto_busqueda',
+            'estadoProfesor',
+
+            'grupos.index',
+            'grupos.edit',
+            'grupos.show',
+            'grupos.create',
+            'listaGrupos',
+
+            'cursosCarrera.index',
+            'cursosCarrera.edit',
+            'cursosCarrera.show',
+            'cursosCarrera.create',
 
             'carrera.index',
             'carrera.show',
@@ -568,33 +762,84 @@ class RolesAndPermissionTableSeeder extends Seeder
             'listaCarreras',
             'carrera.create',
 
+            'roles.index',
+            'roles.show' ,
+            'roles.edit',
+            'roles.create',
+
+            'profesores.index',
+            'profesores.edit',
+            'profesores.show',
+            'profesores.create',
+
+            'cursos.index',
+            'cursos.edit',
+            'cursos.show',
+            'cursos.create',
+            'gruposData',
+            'listaCursos',
+            'estadoGrupo',
+            'editRelations',
+            'estadoCarrera',
+            'next',
+            'carrerasData',
+
+            'aulas.index',
+            'aulas.show',
+            'aulas.edit',
+            'aulas.create',
+
+            'bitacora.index',
+
+            'backups.index',
+            'backups.show' ,
+            'backups.edit',
+            'backups.create',
+
+            'reporte1.reporte1',
+            'reporte.reporte' ,
+            'infoReporte.infoReporte',
+            'excel.excel',
+            'reportes.index',
+
             'areaacademica.index',
             'areaacademica.show',
             'areaacademica.edit',
             'areaacademica.create',
 
-            'reporte1.reporte1',
-       		'reporte.reporte' ,
-       		'infoReporte.infoReporte',
-       		'excel.excel',
-       		'reportes.index',
+            'ciclo.index',
+            'ciclo.edit',
+            'ciclo.show',
+            'ciclo.create', 
+            'listaCiclo',
         ]);
         //un segundo administrador de todo menos los mismos usuarios
         $admin2 = Role::create(
             ['name' => 'Admin2',
             'description' => 'El administrador secuntadio',]);
         $admin2->givePermissionTo([
-            'profesores.index',
-            'profesores.show',
-            'profesores.edit',
-            'profesores.destroy',
-            
-            'cursos.create',
-            'cursos.index',
-            'cursos.show',
-            'cursos.create',
-            'cursos.edit',
-            'cursos.destroy',
+
+
+            'horario2.index',
+            'horario2.edit',
+            'horario2.show',
+            'horario2.create',
+            'horario2.destroy',
+            'listaHorarios.listaHorarios2',
+
+
+            'horario.index',
+            'horario.edit',
+            'horario.show',
+            'horario.create',
+            'horario.destroy',
+            'listaHorarios.listaHorarios',
+
+            'asignacioncursos.index',
+            'asignacioncursos.edit',
+            'asignacioncursos.show',
+            'asignacioncursos.create',
+            'asignacioncursos.destroy',
 
             'proyectos.create',
             'proyectos.index',
@@ -605,6 +850,51 @@ class RolesAndPermissionTableSeeder extends Seeder
             'proyecto_busqueda',
             'estadoProfesor',
 
+            'grupos.index',
+            'grupos.edit',
+            'grupos.show',
+            'grupos.create',
+            'grupos.destroy',
+            'listaGrupos',
+
+            'cursosCarrera.index',
+            'cursosCarrera.edit',
+            'cursosCarrera.show',
+            'cursosCarrera.create',
+            'cursosCarrera.destroy',
+
+            'carrera.index',
+            'carrera.show',
+            'carrera.edit',
+            'listaCarreras',
+            'carrera.create',
+            'carrera.destroy',
+
+            'roles.index',
+            'roles.show' ,
+            'roles.edit',
+            'roles.create',
+            'roles.destroy',
+
+            'profesores.index',
+            'profesores.edit',
+            'profesores.show',
+            'profesores.create',
+            'profesores.destroy',
+
+            'cursos.index',
+            'cursos.edit',
+            'cursos.show',
+            'cursos.create',
+            'cursos.destroy',
+            'gruposData',
+            'listaCursos',
+            'estadoGrupo',
+            'editRelations',
+            'estadoCarrera',
+            'next',
+            'carrerasData',
+
             'aulas.index',
             'aulas.show',
             'aulas.edit',
@@ -614,14 +904,17 @@ class RolesAndPermissionTableSeeder extends Seeder
             'bitacora.index',
 
             'backups.index',
-        	'backups.show' ,
+            'backups.show' ,
+            'backups.edit',
+            'backups.create',
+            'backups.destroy',
+            'backups.download',
 
-            'carrera.index',
-            'carrera.show',
-            'carrera.edit',
-            'listaCarreras',
-            'carrera.create',
-            'carrera.destroy',
+            'reporte1.reporte1',
+            'reporte.reporte' ,
+            'infoReporte.infoReporte',
+            'excel.excel',
+            'reportes.index',
 
             'areaacademica.index',
             'areaacademica.show',
@@ -629,11 +922,12 @@ class RolesAndPermissionTableSeeder extends Seeder
             'areaacademica.create',
             'areaacademica.destroy',
 
-			'reporte1.reporte1',
-       		'reporte.reporte' ,
-       		'infoReporte.infoReporte',
-       		'excel.excel',
-       		'reportes.index',
+            'ciclo.index',
+            'ciclo.edit',
+            'ciclo.show',
+            'ciclo.create',
+            'ciclo.destroy',
+            'listaCiclo',
         ]);
         //rol administrador a el usuario por defecto
         //User Admin

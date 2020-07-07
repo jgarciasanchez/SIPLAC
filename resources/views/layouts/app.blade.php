@@ -1,9 +1,28 @@
+<?php 
+    // Demonstrate how to declare global variable 
+      
+    // Declaring global variable 
+    $x = "Geeks"; 
+    $y = "for"; 
+    $z = "Geeks"; 
+      
+    // Display value 
+    // Concatenating String 
+    echo $x.$y.$z; 
+  
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+     <meta id= 23 name="prueba" content="23">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

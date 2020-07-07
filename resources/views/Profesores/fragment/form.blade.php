@@ -1,22 +1,22 @@
 	
 	<div class="form-group">
-	
+		{!! Form::label('nombre','Nombre') !!}
 		{!! Form::text('nombre1',old('nombre1'),['class'=>'form-control','placeholder'=> 'Primer nombre']) !!}
 	</div>
 	<div class="form-group">
-		
+		{!! Form::label('segundo_nombre','Segundo Nombre') !!}
 		{!! Form::text('nombre2',old('nombre2'),['class'=>'form-control','placeholder'=> 'Segundo nombre']) !!}
 	</div>
 	<div class="form-group">
-		
+		{!! Form::label('apellido','Apellido') !!}
 		{!! Form::text('apellido1',old('apellido1'),['class'=>'form-control','placeholder'=> 'Primer pellido']) !!}
 	</div>
 	<div class="form-group">
-		
+		{!! Form::label('segundo_apellido','Segundo Apellido') !!}
 		{!! Form::text('apellido2',old('apellido2'),['class'=>'form-control','placeholder'=> 'Segundo pellido']) !!}
 	</div>
 	<div class="form-group">
-		
+		{!! Form::label('cedula','Cedula') !!}
 		{!! Form::text('cedula',old('cedula'),['class'=>'form-control','placeholder'=> 'Cédula']) !!}
 	</div>
 	<div class="form-group">
@@ -24,11 +24,11 @@
 		{!! Form::date('fnacimiento', null, ['class' => 'form-control']) !!}
 	</div>
 		<div class="form-group">
-		
+		{!! Form::label('email','Email') !!}
 		{!! Form::email('email',old('email'),['class'=>'form-control','placeholder'=> 'Email']) !!}
 	</div>
 	<div class="form-group">
-		
+		{!! Form::label('telefono','Telefono') !!}
 		{!! Form::text('telefono',old('telefono'),['class'=>'form-control','placeholder'=> 'Numero de telefono']) !!}
 	</div>
 

@@ -76,8 +76,8 @@ class CicloController extends Controller
             'fecha_inicio' => ['required', 'string', 'max:10'],
             'fecha_fin' => ['required', 'string', 'max:10'],
             'estado' => ['required', 'string', 'max:1'],
-        ])->validate();//ultima linea es por si algo sale mal retorna la vista anterior con la lista de errores
-        //creacion de la entidad
+        ])->validate();
+
         $data = $request->all();
         if($data['fecha_inicio'] < $data['fecha_fin']){
             Ciclo::create([
@@ -102,8 +102,16 @@ class CicloController extends Controller
     public function edit($id)
     {
         $ciclo = Ciclo::find($id);
-        $ciclos = ['1','2','3',];
-        return view('ciclo.edit',compact('ciclo','ciclos'));
+        if($ciclo->ciclo == 1){
+             $act = "Ciclo 1";
+        }else{
+            if ($ciclo->ciclo == 2) {
+                $act = "Ciclo 2";
+            }else{
+                $act = "Verano 3";
+            }
+        }
+        return view('ciclo.edit',compact('ciclo','act'));
     }
     /**
      * Update the specified resource in storage.

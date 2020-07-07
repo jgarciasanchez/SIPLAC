@@ -13,13 +13,10 @@
 							<div class="form-group">
 								{!! Form::label('ciclo','Ciclo') !!}
 								<select name="ciclo" class="form-control">
-									@foreach ($ciclos as $item)
-										@if ($item == $ciclo->ciclo)
-												<option selected="selected" value="{{ $item }}">{{$item}}</option>
-											@else
-												<option value="{{ $item}}">{{ $item }}</option>
-										@endif
-									@endforeach
+									<option  selected="selected" value="{{$ciclo->ciclo}}">{{$act}}</option>
+									<option  value="1">Ciclo 1</option>	
+									<option  value="2">Ciclo 2</option>	
+									<option  value="3">Verano 3</option>	
 								</select>
 							</div>	
 							<div class="form-group">
