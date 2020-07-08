@@ -35,7 +35,7 @@ class BitacoraController extends Controller
         ->nombre($nombre)
         ->accion($accion)
         ->fecha($fecha)
-        ->paginate(50);
+        ->paginate(9999999999);
         //LAS ULTIMAS VARIABLES SON PARA RECARGAR EL DATO DE BUSQUEDA EN EL FORMULARIO DE BUSQUEDA
         return view('bitacora.index',compact('bit','nombre','accion','fecha'));
     }
