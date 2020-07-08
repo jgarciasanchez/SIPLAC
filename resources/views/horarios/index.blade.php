@@ -59,13 +59,15 @@ echo $GLOBALS['x'];
 
 
       <div class="form-group">
+            @can('horario.create')
               <button type="submit" id='btnGuardar' class="btn btn-success btn-sm">
                  Guardar Horario
               </button>
 
              <button type="submit" id='btnDescartar' class="btn btn-danger btn-sm">
                 Descartar Cambios
-              </button>
+              </button> 
+             @endcan
       </div>
       @include('usuarios.fragment.info')
       

@@ -28,21 +28,25 @@
 						</thead>
 						<tbody>
 							@foreach ($backups as $item)
-							<tr>
-								<td>{{ $item->nombre}}</td>
-								<td>{{ round($item->tamaño, 2)}}</td>
-								<td class="form-inline">
-									<a class="btn btn-primary" href="{{ route('backups.download',$item->nombre) }}">
-										Descargar
-									</a>&nbsp
-									@can('backups.destroy')
-									<button type="button" onclick="confirmar('{{$item->nombre}}')" class="btn 		btn-danger">
-										Eliminar
-									</button>
-									@endcan
-
-								</td>
-							</tr>
+								<tr>
+									<td>{{ $item->nombre}}</td>
+									<td>{{ round($item->tamaño, 2)}}</td>
+									<td class="row">
+										@can('backups.download')
+										<a class="btn btn-primary" href="{{ route('backups.download',$item->nombre) }}">
+												Descargar
+										</a>&nbsp
+										@endcan
+										@can('areaacademica.create')
+										@can('backups.destroy')
+											 <button type="button" onclick="confirmar('{{$item->nombre}}')" class="btn 		btn-danger" >
+							                    Eliminar
+							                </button>
+						                @endcan
+						                @endcan
+						  
+									</td>
+								</tr>
 							@endforeach
 						</tbody>
 					</table>

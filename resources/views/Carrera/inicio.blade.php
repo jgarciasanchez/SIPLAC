@@ -5,7 +5,7 @@
 <div class="col-md-12">
 	<div class="row">
 		<div class="mr-auto form-inline mt-3">
-			<a class="btn btn-primary" href="{{ route('carrera.create') }}">Nueva Carrera</a>
+			 @can('carrera.create')<a class="btn btn-primary" href="{{ route('carrera.create') }}">Nueva Carrera</a> @endcan
 		</div>
 	</div>
 
