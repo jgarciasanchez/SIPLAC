@@ -40,7 +40,6 @@ Route::get('ayuda/bitacora', 'HomeController@bitacora')->name('ayuda.bitacora');
 
 
 
-
 // Route::resource('profesores','ProfesorController');
 //esta parte realiza las validaciones de los permisos sobre cada ruta
 Route::middleware(['auth'])->group(function () {
@@ -455,3 +454,8 @@ Route::post('asignacioncursos/store', 'AsignacionCursosController@store')->name(
 //-------------------------HORARIO------------------------------
 Route::get('/listaHorarios', 'HorarioController2@listar')->name('listaHorarios');
 Route::resource('horario2', 'horarioController2');
+
+
+Route::post('/carrera/{id}',function($id){
+	session(['carrera' => $id]);
+});

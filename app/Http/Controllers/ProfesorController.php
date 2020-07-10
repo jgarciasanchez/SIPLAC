@@ -13,6 +13,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 use App\Exceptions\Handler;
+
+
+
 class ProfesorController extends Controller
 {
 
@@ -32,7 +35,6 @@ class ProfesorController extends Controller
      */
     public function index(Request $request)
     {
-
         $nombre1 = $request->get('nombre1');
         $apellido1 = $request->get('apellido1');
         $cedula = $request->get('cedula');

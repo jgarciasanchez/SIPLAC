@@ -1,19 +1,3 @@
-<?php 
-    // Demonstrate how to declare global variable 
-      
-    // Declaring global variable 
-    $x = "Geeks"; 
-    $y = "for"; 
-    $z = "Geeks"; 
-      
-    // Display value 
-    // Concatenating String 
-    echo $x.$y.$z; 
-  
-?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -38,6 +22,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/js/bootstrap-colorpicker.min.js"></script>
+    <script src="{{ asset('js/siplac.js') }}" defer></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
