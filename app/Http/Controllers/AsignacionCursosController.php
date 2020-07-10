@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Carreras;
 use App\Http\Controllers\BitacoraController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rule;
@@ -47,13 +48,21 @@ class AsignacionCursosController extends Controller
         
         foreach($list as $item){
             $profPermanente = CursoProfesor::where('nrc_id','=',$item->id)->where('tipo_asingnacion','=','P')->first();
-
+            $profPermanente2 = CursoProfesor::where('nrc_id','=',$item->id)->where('tipo_asingnacion','=','P2')->first();
             if($profPermanente == null){
                 $nombreProf = 'Sin asignar';
             }
             else{
                 $profe = Profesores::find($profPermanente->profesor_id);
                 $nombreProf = $profe['nombre1'] .' '. $profe['apellido1'];
+            }
+
+            if($profPermanente2 == null){
+                $nombreProf2 = 'Sin asignar';
+            }
+            else{
+                $profe2 = Profesores::find($profPermanente2->profesor_id);
+                $nombreProf2 = $profe2['nombre1'] .' '. $profe2['apellido1'];
             }
 
             $dateValue = strtotime( Ciclo::find($item->ciclo_id)->fecha_inicio);                     
@@ -64,8 +73,10 @@ class AsignacionCursosController extends Controller
             $item['nombreCiclo'] = Ciclo::find($item->ciclo_id)->ciclo.'('.$yr.')';
             $item['nombreGrupo'] = Grupos::find($item->grupos_id)->numero;
             $item['nombreProfe'] = $nombreProf;
-
+            $item['nombreProfe2'] = $nombreProf2;
+            $item['carrera'] = (Carreras::find((Cursos::find($item->curso_id))->carrera_id))->nombre;
         }
+        // dd($list);
         return view('asignacioncursos.index',compact('list'));
     }
         /**

@@ -22,9 +22,11 @@
 				<thead class="thead-dark">
 					<th scope="row">NRC</th>
 					<th scope="row">Curso</th>
+					<th scope="row">Carrera</th>
 					<th scope="row">Grupo</th>
 					<th scope="row">Ciclo</th>
-					<th scope="row">Profesor</th>
+					<th scope="row">Profesor Permanente</th>
+					<th scope="row">Profesor Permanente2</th>
 					<th scope="row">Acciones</th>
 				</thead>
 				<tbody>
@@ -32,9 +34,11 @@
 					<tr>
 						<td>{{ $item->nrc }}</td>
 						<td>{{ $item->nombreCurso}}</td>
+						<td>{{ $item->carrera}}</td>
 						<td>{{ $item->nombreGrupo}}</td>
 						<td>{{ $item->nombreCiclo }}</td>
 						<td>{{ $item->nombreProfe }}</td>
+						<td>{{ $item->nombreProfe2 }}</td>
 						<td class="form-inline">
 							@can('asignacioncursos.create')<a class="btn btn-primary btn-sm" href="{{ route('asignacioncursos.edit',$item->id) }}">Editar datos</a>&nbsp
 							@endcan
@@ -64,6 +68,8 @@
 <script type="text/javascript">
 	var table = $('#tabla').DataTable({
 		"columns": [
+			null,
+			null,
 			null,
 			null,
 			null,
