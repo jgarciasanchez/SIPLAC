@@ -62,7 +62,20 @@ class cursoProfesor extends Model
                 ->join('siplac_curso', 'siplac_curso.id', '=', 'siplac_grupos_cursos.curso_id')
                 ->join('siplac_grupos', 'siplac_grupos.id', '=', 'siplac_grupos_cursos.grupos_id')
                 ->join('siplac_ciclo', 'siplac_ciclo.id', '=', 'siplac_grupos_cursos.ciclo_id')
-                
                 ->where('siplac_profesores.id', '=', "$id");
+    }
+
+    public function scopepid($query, $id)
+    {
+        if ($id)
+            return $query->select('siplac_curso.nombre_cur', 'siplac_curso.codigo', 'siplac_curso.creditos', 'siplac_curso.horas_contacto', 'siplac_curso_profesor.tipo_asingnacion', 'siplac_grupos.numero', 'siplac_grupos_cursos.nrc')
+                ->join('siplac_profesores', 'siplac_profesores.id', '=', 'siplac_curso_profesor.profesor_id')
+                ->join('siplac_grupos_cursos', 'siplac_grupos_cursos.id', '=', 'siplac_curso_profesor.nrc_id') //enlazo con grupoxcurso acceso=> nrc ciclo grupo
+                ->join('siplac_curso', 'siplac_curso.id', '=', 'siplac_grupos_cursos.curso_id')
+                ->join('siplac_grupos', 'siplac_grupos.id', '=', 'siplac_grupos_cursos.grupos_id')
+                ->join('siplac_ciclo', 'siplac_ciclo.id', '=', 'siplac_grupos_cursos.ciclo_id')
+                ->where('siplac_profesores.id', '=', "$id")
+                ->where('siplac_curso_profesor.tipo_asingnacion', '=', 'P')
+                ->orwhere('siplac_curso_profesor.tipo_asingnacion', '=', 'P2');
     }
 }

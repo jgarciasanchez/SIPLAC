@@ -8,6 +8,7 @@
 			@can('usuarios.create')
 			<a data-toggle="tooltip" data-placement="top" title="Crea un nuevo usuario" class="btn btn-primary" href="{{ route('usuarios.create') }}">Nuevo</a>
 			@endcan
+			&nbsp
 			@can('roles.edit')
 			<a data-toggle="tooltip" data-placement="top" title="Edita los roles existentes o crea uno nuevo" class="btn btn-info" href="{{ route('roles.index') }}">Editar roles</a>
 			@endcan

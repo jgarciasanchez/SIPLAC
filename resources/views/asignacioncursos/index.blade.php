@@ -7,7 +7,7 @@
 	<div class="row pt-5">
 
 		<div class="">
-			<a class="btn btn-primary" href="{{ route('asignacioncursos.create') }}">Asignar Nuevo Curso</a>
+			@can('asignacioncursos.create')<a class="btn btn-primary" href="{{ route('asignacioncursos.create') }}">Asignar Nuevo Curso</a>@endcan
 		</div>
 
 		<div class="ml-auto">
@@ -36,7 +36,9 @@
 						<td>{{ $item->nombreCiclo }}</td>
 						<td>{{ $item->nombreProfe }}</td>
 						<td class="form-inline">
-							<a class="btn btn-primary btn-sm" href="{{ route('asignacioncursos.edit',$item->id) }}">Editar datos</a>&nbsp
+							@can('asignacioncursos.create')<a class="btn btn-primary btn-sm" href="{{ route('asignacioncursos.edit',$item->id) }}">Editar datos</a>&nbsp
+							@endcan
+							@can('asignacioncursos.destroy')
 							{!! Form::open(['route'=>['asignacioncursos.destroy',$item->id],'method'=>'POST']) !!}
 							@csrf
 							{!! Form::hidden('_method', 'DELETE') !!}
@@ -46,6 +48,7 @@
 							{!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-sm'])!!}
 							@endif
 							{!! Form::close() !!}
+							@endcan
 						</td>
 					</tr>
 					@endforeach

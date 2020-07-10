@@ -104,7 +104,7 @@ $factory->define(Ciclo::class, function (Faker $faker) {
 $factory->define(Cursos::class, function (Faker $faker) {
     return [
             'nombre_cur' => $faker->jobTitle,
-            'codigo' => $faker->buildingNumber,
+            'codigo' => rand(4000,5000),
             'creditos' => rand(1,5),
             'horas' => rand(1,6),
             'estado' => 'A',

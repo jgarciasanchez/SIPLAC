@@ -70,10 +70,16 @@
 
             <br>
             <div class="form-group">
+              @can('horario2.index')
               <button type="submit" class="btn  btn-info">
                 Buscar
               </button>
-			        <a href="{{ route('semanal') }}">Descargar</a>
+              @endcan
+              @can('semanal.semanal')
+			        <a class="btn  btn-success" href="{{ route('semanal') }}">
+                 Descargar
+              </a>
+              @endcan
             </div>
           {!! Form::close() !!}
     </div>

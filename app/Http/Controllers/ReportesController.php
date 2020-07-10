@@ -68,63 +68,88 @@ class ReportesController extends Controller
     public function semanal()
     {
         $horarios = session("horario");
+        if ($horarios->count() != 0) {
+            $phpWord = new \PhpOffice\PhpWord\PhpWord();
+            $sectionStyle = array(
+                'orientation' => 'landscape',
+            );
+            $section = $phpWord->addSection($sectionStyle);
+            $header = array('size' => 16, 'bold' => true);
 
-        // dd($horario);
-        $phpWord = new \PhpOffice\PhpWord\PhpWord();
-        $sectionStyle = array(
-            'orientation' => 'landscape',
-        );
-        $section = $phpWord->addSection($sectionStyle);
-        $header = array('size' => 16, 'bold' => true);
 
+            $fancyTableStyleName = 'Fancy Table';
+            $fancyTableStyle = array('borderSize' => 6, 'borderColor' => '000000', 'cellMargin' => 80, 'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER, 'cellSpacing' => 0);
+            $fancyTableFirstRowStyle = array('borderBottomSize' => 18, 'borderBottomColor' => '000000');
+            $fancyTableCellStyle = array('valign' => 'center');
+            $fancyTableFontStyle = array('bold' => true);
+            $cellColSpan1 = array('gridSpan' => 3, 'valign' => 'center', 'bgColor' => 'ffda21', 'valign' => 'center');
+            $cellColSpan2 = array('gridSpan' => 4, 'valign' => 'center', 'bgColor' => '358fbf', 'valign' => 'center');
+            $cellColSpan3 = array('gridSpan' => 4, 'valign' => 'center', 'bgColor' => 'd6a780', 'valign' => 'center');
+            $cellColSpan4 = array('gridSpan' => 2, 'valign' => 'center', 'bgColor' => 'c61521', 'valign' => 'center');
+            $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle, $fancyTableFirstRowStyle);
 
-        $fancyTableStyleName = 'Fancy Table';
-        $fancyTableStyle = array('borderSize' => 6, 'borderColor' => '000000', 'cellMargin' => 80, 'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER, 'cellSpacing' => 0);
-        $fancyTableFirstRowStyle = array('borderBottomSize' => 18, 'borderBottomColor' => '000000');
-        $fancyTableCellStyle = array('valign' => 'center');
-        $fancyTableFontStyle = array('bold' => true);
-        $cellColSpan1 = array('gridSpan' => 3, 'valign' => 'center', 'bgColor' => 'ffda21', 'valign' => 'center');
-        $cellColSpan2 = array('gridSpan' => 4, 'valign' => 'center', 'bgColor' => '358fbf', 'valign' => 'center');
-        $cellColSpan3 = array('gridSpan' => 4, 'valign' => 'center', 'bgColor' => 'd6a780', 'valign' => 'center');
-        $cellColSpan4 = array('gridSpan' => 2, 'valign' => 'center', 'bgColor' => 'c61521', 'valign' => 'center');
-        $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle, $fancyTableFirstRowStyle);
+            $nrc = 0;
+            $nivel = "";
+            $codigo = "";
+            $curso = "";
+            $grupo = "";
+            $horarioS = "";
+            $aula = "";
+            $profesor = "";
+            $lista = array();
+            $horarioAux = array();
+            $carrera = "";
+            $band = true;
+            $aux = array();
+            foreach ($horarios as $horario) {
+                //  dd($horarios);
+                $aux = $horario;
+                if ($nrc == 0) {
+                    $carrera = $horario->nombre;
+                    $nrc = $horario->nrc;
+                    $nivel = $horario->nivel;
+                    $codigo = $horario->codigo;
+                    $curso = $horario->nombre_cur;
+                    $grupo = $horario->numero;
 
-        $nrc = 0;
-        $nivel = "";
-        $codigo = "";
-        $curso = "";
-        $grupo = "";
-        $horarioS = "";
-        $aula = "";
-        $profesor = "";
-        $lista = array();
-        $horarioAux = array();
-        $carrera = "";
-        $band = true;
-        $aux = array();
-        foreach ($horarios as $horario) {
-            //  dd($horarios);
-            $aux = $horario;
-            if ($nrc == 0) {
-                $carrera = $horario->nombre;
-                $nrc = $horario->nrc;
-                $nivel = $horario->nivel;
-                $codigo = $horario->codigo;
-                $curso = $horario->nombre_cur;
-                $grupo = $horario->numero;
+                    $horarioS = $this->tomaDia($horario->daysOfWeek) . ":" . substr($horario->startTime, 0, 5) . "-" . substr($horario->endTime, 0, 5);
+                    $aula = $horario->aula_num;
 
-                $horarioS = $this->tomaDia($horario->daysOfWeek) . ":" . substr($horario->startTime, 0, 5) . "-" . substr($horario->endTime, 0, 5);
-                $aula = $horario->aula_num;
+                    $profesor = $horario->apellido1 . " " . $horario->apellido2 . " " . $horario->nombre1;
+                    // dd($nrc, $horarioS, $horario);
+                } else if ($nrc == $horario->nrc) {
+                    // dd($nrc, $horario->nrc);
+                    $horarioS = $horarioS . "\n" . $this->tomaDia($horario->daysOfWeek) . ":" . substr($horario->startTime, 0, 5) . "-" . substr($horario->endTime, 0, 5);
+                    $aula = $aula . "\n" . $horario->aula_num;
+                    // dd($nrc, $horarioS, $horario);
+                } else {
+                    // dd($nrc, $aula, $horarioS);
+                    array_push($horarioAux, $carrera);
+                    array_push($horarioAux, $nrc);
+                    array_push($horarioAux, $nivel);
+                    array_push($horarioAux, $codigo);
+                    array_push($horarioAux, $curso);
+                    array_push($horarioAux, $grupo);
+                    array_push($horarioAux, $horarioS);
+                    array_push($horarioAux, $aula);
+                    array_push($horarioAux, $profesor);
+                    array_push($lista, $horarioAux);
+                    $horarioAux = array();
+                    $carrera = $horario->nombre;
+                    $nrc = $horario->nrc;
+                    $nrc = $horario->nrc;
+                    $nivel = $horario->nivel;
+                    $codigo = $horario->codigo;
+                    $curso = $horario->nombre_cur;
+                    $grupo = $horario->numero;
 
-                $profesor = $horario->apellido1 . " " . $horario->apellido2 . " " . $horario->nombre1;
-                // dd($nrc, $horarioS, $horario);
-            } else if ($nrc == $horario->nrc) {
-                // dd($nrc, $horario->nrc);
-                $horarioS = $horarioS . "\n" . $this->tomaDia($horario->daysOfWeek) . ":" . substr($horario->startTime, 0, 5) . "-" . substr($horario->endTime, 0, 5);
-                $aula = $aula . "\n" . $horario->aula_num;
-                // dd($nrc, $horarioS, $horario);
-            } else {
-                // dd($nrc, $aula, $horarioS);
+                    $horarioS = $this->tomaDia($horario->daysOfWeek) . ":" . substr($horario->startTime, 0, 5) . "-" . substr($horario->endTime, 0, 5);
+                    $aula = $horario->aula_num;
+
+                    $profesor = $horario->apellido1 . " " . $horario->apellido2 . " " . $horario->nombre1;
+                }
+            }
+            if ($aux->nrc == $nrc) {
                 array_push($horarioAux, $carrera);
                 array_push($horarioAux, $nrc);
                 array_push($horarioAux, $nivel);
@@ -135,90 +160,67 @@ class ReportesController extends Controller
                 array_push($horarioAux, $aula);
                 array_push($horarioAux, $profesor);
                 array_push($lista, $horarioAux);
-                $horarioAux = array();
-                $carrera = $horario->nombre;
-                $nrc = $horario->nrc;
-                $nrc = $horario->nrc;
-                $nivel = $horario->nivel;
-                $codigo = $horario->codigo;
-                $curso = $horario->nombre_cur;
-                $grupo = $horario->numero;
-
-                $horarioS = $this->tomaDia($horario->daysOfWeek) . ":" . substr($horario->startTime, 0, 5) . "-" . substr($horario->endTime, 0, 5);
-                $aula = $horario->aula_num;
-
-                $profesor = $horario->apellido1 . " " . $horario->apellido2 . " " . $horario->nombre1;
             }
-        }
-        if ($aux->nrc == $nrc) {
-            array_push($horarioAux, $carrera);
-            array_push($horarioAux, $nrc);
-            array_push($horarioAux, $nivel);
-            array_push($horarioAux, $codigo);
-            array_push($horarioAux, $curso);
-            array_push($horarioAux, $grupo);
-            array_push($horarioAux, $horarioS);
-            array_push($horarioAux, $aula);
-            array_push($horarioAux, $profesor);
-            array_push($lista, $horarioAux);
-        }
 
-        //  dd($lista);
+            //  dd($lista);
 
-        $grupoActual = 0;
+            $grupoActual = 0;
 
-        for ($i = 0; $i < count($lista); $i++) {
-            if ($grupoActual == 0) {
-                $section->addText("Carrera:" . "  " . $lista[$i][0], $header);
-                $grupoActual = $lista[$i][5];
-                $table = $section->addTable($fancyTableStyleName);
-                $table->addRow(450);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Nivel', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('NRC', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Codigo', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Curso', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Grupo', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Horario', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Aula', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Profesor', $fancyTableFontStyle);
-            } else if ($grupoActual != $lista[$i][5]) {
-                $section->addPageBreak();
-                $section->addText($lista[$i][0], $header);
-                $grupoActual = $lista[$i][5];
-                $table = $section->addTable($fancyTableStyleName);
+            for ($i = 0; $i < count($lista); $i++) {
+                if ($grupoActual == 0) {
+                    $section->addText("Carrera:" . "  " . $lista[$i][0], $header);
+                    $grupoActual = $lista[$i][5];
+                    $table = $section->addTable($fancyTableStyleName);
+                    $table->addRow(450);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Nivel', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('NRC', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Codigo', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Curso', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Grupo', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Horario', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Aula', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Profesor', $fancyTableFontStyle);
+                } else if ($grupoActual != $lista[$i][5]) {
+                    $section->addPageBreak();
+                    $section->addText($lista[$i][0], $header);
+                    $grupoActual = $lista[$i][5];
+                    $table = $section->addTable($fancyTableStyleName);
+                    $table->addRow(900);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Nivel', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('NRC', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Codigo', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Curso', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Grupo', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Horario', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Aula', $fancyTableFontStyle);
+                    $table->addCell(2000, $fancyTableCellStyle)->addText('Profesor', $fancyTableFontStyle);
+                }
+
                 $table->addRow(900);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Nivel', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('NRC', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Codigo', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Curso', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Grupo', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Horario', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Aula', $fancyTableFontStyle);
-                $table->addCell(2000, $fancyTableCellStyle)->addText('Profesor', $fancyTableFontStyle);
+                $table->addCell(2000)->addText($lista[$i][2]);
+                $table->addCell(2000)->addText($lista[$i][1]);
+                $table->addCell(2000)->addText($lista[$i][3]);
+                $table->addCell(2000)->addText($lista[$i][4]);
+                $table->addCell(2000)->addText($lista[$i][5]);
+                $table->addCell(2000)->addText($lista[$i][6]);
+                $table->addCell(2000)->addText($lista[$i][7]);
+                $table->addCell(2000)->addText($lista[$i][8]);
             }
 
-            $table->addRow(900);
-            $table->addCell(2000)->addText($lista[$i][2]);
-            $table->addCell(2000)->addText($lista[$i][1]);
-            $table->addCell(2000)->addText($lista[$i][3]);
-            $table->addCell(2000)->addText($lista[$i][4]);
-            $table->addCell(2000)->addText($lista[$i][5]);
-            $table->addCell(2000)->addText($lista[$i][6]);
-            $table->addCell(2000)->addText($lista[$i][7]);
-            $table->addCell(2000)->addText($lista[$i][8]);
+
+            $objectWriter = IOFactory::createWriter($phpWord, 'Word2007');
+            try {
+                $objectWriter->save(storage_path('TestWordFile.docx'));
+            } catch (Exception $e) {
+            }
+
+            return response()->download(storage_path('TestWordFile.docx'));
+        } else {
+            return back()->withInput(); 
         }
-
-
-        $objectWriter = IOFactory::createWriter($phpWord, 'Word2007');
-        try {
-            $objectWriter->save(storage_path('TestWordFile.docx'));
-        } catch (Exception $e) {
-        }
-
-        return response()->download(storage_path('TestWordFile.docx'));
     }
 
-    public function datos($ids)
+    public function datos($ids, $permanente)
     {
         $idsA = explode(",", $ids);
         $datos = array();
@@ -252,14 +254,26 @@ class ReportesController extends Controller
             }
             array_push($arrayProyectos, $proyectos);
             $band = false;
-            $listProfC = Profesores::cursoJoinID($id)->paginate(99999999);
+            if ($permanente) {
+                $listProfC = Profesores::cursoJoinPID($id)->paginate(99999999);
+                // dd($listProfC);
+            } else {
+                // dd("false");
+                $listProfC = Profesores::cursoJoinID($id)->paginate(99999999);
+                // dd($listProfC);
+            }
+
             foreach ($listProfC as $item) {
-                if ($item->cur_id != null)
+                if ($item->cur_id != null) {
                     $band = true;
+                }
             }
             if ($band) {
-                $cursos = cursoProfesor::id($id)->paginate(99999999);
-                // dd($cursos);
+                if ($permanente) {
+                    $cursos = cursoProfesor::pid($id)->paginate(99999999);
+                } else {
+                    $cursos = cursoProfesor::id($id)->paginate(99999999);
+                }
                 foreach ($cursos as $item) {
                     $jornadaC += $item->horas_contacto;
                 }
@@ -335,7 +349,13 @@ class ReportesController extends Controller
 
     public function infoReporte(Request $request, $ids, $op, $tp)
     {
-        $arrayDatos = $this->datos($ids);
+        if ($tp == 1) {
+            // dd("false");
+            $arrayDatos = $this->datos($ids, true);
+        } else {
+            $arrayDatos = $this->datos($ids, false);
+        }
+
         $profesores = $arrayDatos[0];
         $arrayCursos = $arrayDatos[1];
         $arrayProyectos = $arrayDatos[2];
@@ -535,9 +555,6 @@ class ReportesController extends Controller
                         }
                     }
                 }
-
-
-
                 $objectWriter = IOFactory::createWriter($phpWord, 'Word2007');
                 try {
                     $objectWriter->save(storage_path('TestWordFile.docx'));
@@ -718,6 +735,9 @@ class ReportesController extends Controller
 
         return response()->download(storage_path('TestWordFile.docx'));
     }
+
+
+
 
     public function excel()
     {

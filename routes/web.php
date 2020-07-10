@@ -228,9 +228,11 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('excel', 'ReportesController@excel')->name('excel')
 	->middleware('permission:excel.excel');
 
-	Route::post('updateReporte2/{ids}', 'ReportesController@updateReporte2')->name('updateReporte2');
+	Route::post('updateReporte2/{ids}', 'ReportesController@updateReporte2')->name('updateReporte2')
+	->middleware('permission:updateReporte2.updateReporte2');
 
-	Route::get('semanal', 'ReportesController@semanal')->name('semanal');
+	Route::get('semanal', 'ReportesController@semanal')->name('semanal')
+	->middleware('permission:semanal.semanal');
 
 	//-------------------------CARRERAS-----------------------------------
 	Route::get('/listaCarreras', 'CarrerasController@listar')->name('listaCarreras')
