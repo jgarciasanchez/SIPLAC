@@ -6,6 +6,7 @@
 	<div class="row">
 		<div class="mr-auto form-inline mt-3">
 			 @can('areaacademica.create')<a class="btn btn-primary" href="{{ route('areaacademica.create') }}">Nueva Area</a> @endcan
+		</div>	 
 	</div>
 
 	<div class="row pt-5">

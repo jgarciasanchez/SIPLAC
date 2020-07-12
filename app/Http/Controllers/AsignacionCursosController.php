@@ -71,7 +71,7 @@ class AsignacionCursosController extends Controller
 
             $item['nombreCurso'] = Cursos::find($item->curso_id)->nombre_cur;
             $item['nombreCiclo'] = Ciclo::find($item->ciclo_id)->ciclo.'('.$yr.')';
-            $item['nombreGrupo'] = Grupos::find($item->grupos_id)->numero;
+            //$item['nombreGrupo'] = Grupos::find($item->grupos_id)->numero;
             $item['nombreProfe'] = $nombreProf;
             $item['nombreProfe2'] = $nombreProf2;
             $item['carrera'] = (Carreras::find((Cursos::find($item->curso_id))->carrera_id))->nombre;
@@ -90,9 +90,8 @@ class AsignacionCursosController extends Controller
         $profesores = Profesores::get();
         $cursos = Cursos::get();
         $ciclos = Ciclo::get();
-        $grupos = Grupos::get();
 
-        return view('asignacioncursos.create',compact('profesores','ciclos','cursos','grupos'));
+        return view('asignacioncursos.create',compact('profesores','ciclos','cursos'));
 
     }
     /**
@@ -103,10 +102,12 @@ class AsignacionCursosController extends Controller
      */
     public function store(Request $request){
 
+      //  dd($request);
+
 
     Validator::make($request->all(), [
         'nrc' => ['required', 'string', 'max:255'],
-        'grupo_id' => ['required', 'string', 'max:255'],
+        'grupo' => ['required', 'int','max:1000'],
         'ciclo_id' => ['required', 'string', 'max:255'],
         'curso_id' => ['required', 'string', 'max:255'],
     ])->validate(); //ultima linea es por si algo sale mal retorna la vista anterior con la lista de errores
@@ -118,7 +119,7 @@ class AsignacionCursosController extends Controller
     GrupoCurso::create([
 
         'nrc'  => $data['nrc'],
-        'grupos_id' => $data['grupo_id'],
+        'grupo' => $data['grupo'],
         'ciclo_id' => $data['ciclo_id'],
         'curso_id' => $data['curso_id']
 
@@ -178,7 +179,6 @@ class AsignacionCursosController extends Controller
         $nrc = $grupoCurso->nrc;
         $ciclos = Ciclo::get();
         $cursos =Cursos::get();
-        $grupos = Grupos::get();
         $profesores = Profesores::get();
 
         $profPermanente = CursoProfesor::where('nrc_id','=',$grupoCurso->id)->where('tipo_asingnacion','=','P')->first();
@@ -204,7 +204,7 @@ class AsignacionCursosController extends Controller
              $profeT=null;
         }
         //dd($segundoProfPermanente);
-        return view('asignacioncursos.edit',compact('nrc','profesores','ciclos','grupos','cursos','grupoCurso','profe','profeT','segundoProfe'));
+        return view('asignacioncursos.edit',compact('nrc','profesores','ciclos','cursos','grupoCurso','profe','profeT','segundoProfe'));
 
     }
 
@@ -243,7 +243,7 @@ class AsignacionCursosController extends Controller
 
         Validator::make($request->all(), [
             'nrc' => ['required', 'string', 'max:255'],
-            'grupo_id' => ['required', 'string', 'max:255'],
+            'grupo' => ['required', 'int','max:1000'],
             'ciclo_id' => ['required', 'string', 'max:255'],
             'curso_id' => ['required', 'string', 'max:255'],
         ])->validate(); //ultima linea es por si algo sale mal retorna la vista anterior con la lista de errores
@@ -288,7 +288,7 @@ class AsignacionCursosController extends Controller
             if($profPermanente != null){ 
                 DB::table('siplac_curso_profesor')
                 ->where('nrc_id', $grupoCurso->id)
-                ->where('tipo_asingnacion', 'P')
+                ->where('tipo_asingnacion', 'P2')
                 ->update(['profesor_id' => $data['segundoProfesorPermanente_id']]);
             }
             else{

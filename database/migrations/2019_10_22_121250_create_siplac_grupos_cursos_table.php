@@ -15,11 +15,9 @@ class CreateSiplacGruposCursosTable extends Migration
     {
         Schema::create('siplac_grupos_cursos', function (Blueprint $table) { 
             $table->bigIncrements('id');
-            
             $table->string('nrc',20);
-
-            $table->unsignedBigInteger('grupos_id')->index();
-            $table->foreign('grupos_id')->references('id')->on('siplac_grupos')->onDelete('no action');
+            $table->integer('grupo');
+            //$table->foreign('grupos_id')->references('id')->on('siplac_grupos')->onDelete('no action');
              $table->unsignedBigInteger('curso_id')->index();
             $table->foreign('curso_id')->references('id')->on('siplac_curso')->onDelete('no action');
             $table->unsignedBigInteger('ciclo_id')->index();

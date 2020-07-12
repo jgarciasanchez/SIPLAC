@@ -3,7 +3,7 @@
 <?php
     use App\Carreras;
     $carreras = Carreras::get();
-    if(session('curso') != null){ dd('hola');};
+    //if(session('carrera') != null){ dd('hola');};
 ?>
 
 @extends('layouts.app')

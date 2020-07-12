@@ -107,11 +107,6 @@
                                     </a>
                                     @endcan
 
-                                    @can('grupos.index')
-                                    <a class="dropdown-item " href="{{ route('grupos.index')}}">
-                                        Grupos
-                                    </a>
-                                    @endcan
                                 </div>
                             </li>
 

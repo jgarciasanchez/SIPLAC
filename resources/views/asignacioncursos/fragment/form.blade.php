@@ -19,11 +19,7 @@
 
 		<div class="form-group">
 			{!! Form::label('Grupo','Grupo') !!}
-			<select name="grupo_id" class="form-control">
-				@foreach ($grupos as $item)
-				<option value={{$item->id}}>{{$item->numero}}</option>
-				@endforeach
-			</select>
+			{!! Form::text('grupo',old('grupo'),['class'=>'form-control','placeholder'=> 'Grupo']) !!}
 		</div>
 
 		

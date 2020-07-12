@@ -160,7 +160,7 @@ $factory->define(GrupoCurso::class, function (Faker $faker) {
     return [
             'nrc'  => $faker->buildingNumber,
             'ciclo_id' => Ciclo::inRandomOrder()->value('id') ?: factory(Ciclo::class),
-            'grupos_id' => Grupos::inRandomOrder()->value('id') ?: factory(Grupos::class),
+            'grupo' => $faker->buildingNumber,
             'curso_id' => Cursos::inRandomOrder()->value('id') ?: factory(Cursos::class)
          ];
 });

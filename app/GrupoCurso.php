@@ -12,7 +12,7 @@ class GrupoCurso extends Model
     protected $primaryKey  = 'id';
 
     protected $fillable = [
-        'grupos_id','nrc','curso_id','ciclo_id'
+        'grupo','nrc','curso_id','ciclo_id'
     ];
 
     public function scopeEliminar($query, $idCurso, $idGrupo)
