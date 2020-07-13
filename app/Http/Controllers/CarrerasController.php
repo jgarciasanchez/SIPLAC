@@ -98,7 +98,7 @@ class CarrerasController extends Controller
                 ]);
                 
         }else{
-                return redirect()->route('carrera.index')->with('info', 'fecha de inicio superior a la de cierre, Carrera no registrada');
+                return redirect()->route('Carrera.inicio')->with('info', 'fecha de inicio superior a la de cierre, Carrera no registrada');
             }    
         }else{
 
@@ -110,7 +110,7 @@ class CarrerasController extends Controller
                 'grado' => $data['niv_id'],
                 'estado' => 'A',
               ]);
-            return redirect()->route('carrera.index')->with('info', 'Carrera agregada correctamente');
+            return redirect()->route('Carrera.inicio')->with('info', 'Carrera agregada correctamente');
         }
       }
 

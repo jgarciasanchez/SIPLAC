@@ -92,7 +92,7 @@ echo $GLOBALS['x'];
                 <option>Ninguno</option>
                 @foreach ($grupos as $item)
                     <option value="{{$item->id}}">
-                      @if (request('grupo_id') == $item->id) selected @endif{{$item->numero}}
+                      @if (request('grupo') == $item->id) selected @endif{{$item->grupo}}
                     </option>
                 @endforeach
               </select>

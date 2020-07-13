@@ -20,7 +20,6 @@ use App\Horarios;
 use App\Aulas;
 use App\Ciclo;
 use App\Cursos;
-use App\Grupos;
 use App\Carreras;
 use App\HorarioN;
 use App\GruposCursos;
@@ -47,6 +46,7 @@ class horarioController extends Controller
         $grup = $request->get('grupos_select'); //Busqueda por grupo
         $carr = null;
         $niv = $request->get('nivel_id');  //Busqueda por nivel 
+        //$horarios = Horarios::filtro($aul, $cur, $cic, $grup, $carr, $niv);
         $horarios = Horarios::filtro($aul, $cur, $cic, $grup, $carr, $niv);
         $HorariosTodos = Cursos::cursoAll();  // todos los horarios 
 
@@ -84,7 +84,7 @@ class horarioController extends Controller
         $aulas = Aulas::get();
         $cursos = Cursos::asignados();
         $ciclos = Ciclo::get();
-        $grupos = Grupos::get();
+        $grupos = GruposCursos::get();
         $carrera = Carreras::get();
         $nivel =  ["I","II","III","IV","V"];
 
