@@ -430,6 +430,10 @@ Route::delete('asignacioncursos/{a}', 'AsignacionCursosController@destroy')->nam
 Route::put('asignacioncursos/{a}', 'AsignacionCursosController@update')->name('asignacioncursos.update');
 
 
+//-------------------------Asignacion de actividades------------------------------
+
+Route::get('actividades','actividadesController@index')->name('actividades.index');
+
 /*
 Route::post('asignacioncursos/store', 'AsignacionCursosController@store')->name('asignacioncursos.store')
 		->middleware('permission:asignacioncursos.create');

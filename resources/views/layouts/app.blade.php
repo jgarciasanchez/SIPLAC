@@ -151,6 +151,10 @@
                                     <a class="dropdown-item" href="{{ route('horario.index')}}">
                                        Programacion de Horario
                                     </a>
+
+                                    <a class="dropdown-item" href="{{ route('actividades.index')}}">
+                                       Programacion de actividades
+                                    </a>
                    
                                 </div>
                             </li>
