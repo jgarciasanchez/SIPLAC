@@ -50,7 +50,7 @@ class horarioController2 extends Controller
         $horarios = Horarios::orderBy('nombre', 'asc')
             ->orderBy('numero', 'asc')
             ->filtro2($car, $cic, $grup);
-        // dd($horarios);
+        //dd($grup);
         $HorariosTodos = Cursos::cursoAll();  // todos los horarios 
 
         if ($car != "Ninguno") {
