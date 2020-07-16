@@ -61,6 +61,7 @@ class Horarios extends Model
 
 	public function scopefiltro2($query, $car, $ciclo, $grup)
 	{
+		//dd($ciclo);
 		if ($grup != "Ninguno" and $ciclo != "Ninguno") {
 			return $query->select("siplac_horarios.id as idHorario", 
 			"siplac_horarios.startTime", "siplac_horarios.endTime", 
