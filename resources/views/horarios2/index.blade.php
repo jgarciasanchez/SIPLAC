@@ -35,7 +35,7 @@
        <div id='external-events'> <!---- CODIGO CALENDAR LLAMADO A UNAS FUNCIONES --------------------------------------------->
 
               <div class="form-group">      <!---------------Seleccion de Cursos filtro------------->
-                {!! Form::label('carrera','Carrera') !!}
+                {!! Form::label('carrera','Curso') !!}
                 <select name="carrera_select" id="carrera_select" class="form-control">
                   <option>Ninguno</option>
                   @foreach ($cursos as $item)

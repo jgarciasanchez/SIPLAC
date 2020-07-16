@@ -89,7 +89,6 @@ class ReportesController extends Controller
             $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle, $fancyTableFirstRowStyle);
 
             $nrc = 0;
-            $nivel = "";
             $codigo = "";
             $curso = "";
             $grupo = "";
@@ -126,7 +125,6 @@ class ReportesController extends Controller
                     // dd($nrc, $aula, $horarioS);
                     array_push($horarioAux, $carrera);
                     array_push($horarioAux, $nrc);
-                    array_push($horarioAux, $nivel);
                     array_push($horarioAux, $codigo);
                     array_push($horarioAux, $curso);
                     array_push($horarioAux, $grupo);
@@ -172,7 +170,6 @@ class ReportesController extends Controller
                     $grupoActual = $lista[$i][5];
                     $table = $section->addTable($fancyTableStyleName);
                     $table->addRow(450);
-                    $table->addCell(2000, $fancyTableCellStyle)->addText('Nivel', $fancyTableFontStyle);
                     $table->addCell(2000, $fancyTableCellStyle)->addText('NRC', $fancyTableFontStyle);
                     $table->addCell(2000, $fancyTableCellStyle)->addText('Codigo', $fancyTableFontStyle);
                     $table->addCell(2000, $fancyTableCellStyle)->addText('Curso', $fancyTableFontStyle);
@@ -186,7 +183,6 @@ class ReportesController extends Controller
                     $grupoActual = $lista[$i][5];
                     $table = $section->addTable($fancyTableStyleName);
                     $table->addRow(900);
-                    $table->addCell(2000, $fancyTableCellStyle)->addText('Nivel', $fancyTableFontStyle);
                     $table->addCell(2000, $fancyTableCellStyle)->addText('NRC', $fancyTableFontStyle);
                     $table->addCell(2000, $fancyTableCellStyle)->addText('Codigo', $fancyTableFontStyle);
                     $table->addCell(2000, $fancyTableCellStyle)->addText('Curso', $fancyTableFontStyle);
@@ -197,7 +193,6 @@ class ReportesController extends Controller
                 }
 
                 $table->addRow(900);
-                $table->addCell(2000)->addText($lista[$i][2]);
                 $table->addCell(2000)->addText($lista[$i][1]);
                 $table->addCell(2000)->addText($lista[$i][3]);
                 $table->addCell(2000)->addText($lista[$i][4]);
@@ -256,12 +251,10 @@ class ReportesController extends Controller
             $band = false;
             if ($permanente) {
                 $listProfC = Profesores::cursoJoinPID($id)->paginate(99999999);
-                // dd($listProfC);
             } else {
-                // dd("false");
                 $listProfC = Profesores::cursoJoinID($id)->paginate(99999999);
-                // dd($listProfC);
             }
+            // dd($listProfC);
 
             foreach ($listProfC as $item) {
                 if ($item->cur_id != null) {

@@ -93,11 +93,11 @@ class Profesores extends Model
     }
 
     
-    public function scopeproyecto($query)
-    {
-        return $query->select('siplac_profesores.id', 'siplac_profesores.nombre1', 'siplac_profesores.apellido1', 'siplac_profesores.apellido2', 'siplac_proyectos_profesores.proyecto_id')
-            ->distinct()
-            ->leftjoin('siplac_proyectos_profesores', 'siplac_proyectos_profesores.profesor_id', '=', 'siplac_profesores.id')
-            ->where('siplac_profesores.estado', '=', 'A');
-    }
+    // public function scopeproyecto($query)
+    // {
+    //     return $query->select('siplac_profesores.id', 'siplac_profesores.nombre1', 'siplac_profesores.apellido1', 'siplac_profesores.apellido2', 'siplac_proyectos_profesores.proyecto_id')
+    //         ->distinct()
+    //         ->leftjoin('siplac_proyectos_profesores', 'siplac_proyectos_profesores.profesor_id', '=', 'siplac_profesores.id')
+    //         ->where('siplac_profesores.estado', '=', 'A');
+    // }
 }

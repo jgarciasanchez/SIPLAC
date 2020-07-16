@@ -47,6 +47,7 @@ class horarioController2 extends Controller
         $cic = $request->get('ciclos_select');  //Busqueda por ciclo
         $grup = $request->get('grupos_select'); //Busqueda por grupo
 
+        // dd($car, $cic, $grup);
         $horarios = Horarios::orderBy('nombre', 'asc')
             ->orderBy('numero', 'asc')
             ->filtro2($car, $cic, $grup);
@@ -161,7 +162,7 @@ class horarioController2 extends Controller
     public function cargaInformacion($item)
     {
         $ciclo = Ciclo::find($item->ciclo_id);
-        $idCurso = GruposCursos::find($item->grup_cursos_id)->curso_id;
+        $idCurso = GrupoCurso::find($item->grup_cursos_id)->curso_id;
         $curso = Cursos::find($idCurso);
 
         $item['title'] = $curso->nombre_cur; //starttime, ya lo lleva y endtime, tambien y dayOfweek,

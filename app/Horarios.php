@@ -88,7 +88,7 @@ class Horarios extends Model
 				->where('siplac_grupos_cursos.grupo', '=', "$grup")->get();
 		} else {
 			if ($car != "Ninguno") {
-
+dd($car);
 				return $query->select("siplac_horarios.id as idHorario", 
                 "siplac_horarios.startTime", "siplac_horarios.endTime", 
                 "siplac_horarios.grup_cursos_id", 
@@ -111,7 +111,7 @@ class Horarios extends Model
                     ->join('siplac_carrera', 'siplac_carrera.id', '=', 'siplac_curso.carrera_id')
                     ->join('siplac_aulas', 'siplac_aulas.id', '=', 'siplac_horarios.aula_id')
                     ->where('siplac_curso_profesor.tipo_asingnacion', '=', 'P')
-                    ->where('siplac_carrera.id', '=', "$car")->get();
+                    ->where('siplac_curso.id', '=', "$car")->get();
 
 			} else {
 				if ($grup != "Ninguno") {
@@ -123,10 +123,10 @@ class Horarios extends Model
                 "siplac_horarios.aula_id", 
                 'siplac_carrera.nombre', 
                 'siplac_grupos_cursos.nrc',
+                'siplac_grupos_cursos.grupo as numero',
                 'siplac_curso.codigo',
                 'siplac_curso.nombre_cur',
                 'siplac_aulas.numero as aula_num',
-                'siplac_grupos.nivel',
                 'siplac_profesores.nombre1',
                 'siplac_profesores.apellido1',
                 'siplac_profesores.apellido2')
@@ -138,7 +138,7 @@ class Horarios extends Model
                     ->join('siplac_carrera', 'siplac_carrera.id', '=', 'siplac_curso.carrera_id')
                     ->join('siplac_aulas', 'siplac_aulas.id', '=', 'siplac_horarios.aula_id')
                     ->where('siplac_curso_profesor.tipo_asingnacion', '=', 'P')
-                    ->where('siplac_carrera.id', '=', "$car")->get();
+					->where('siplac_grupos_cursos.grupo', '=', "$grup")->get();
 
 				} else {
 					if ($ciclo != "Ninguno") {
@@ -151,6 +151,7 @@ class Horarios extends Model
 						"siplac_horarios.aula_id", 
 						'siplac_carrera.nombre', 
 						'siplac_grupos_cursos.nrc',
+						'siplac_grupos_cursos.grupo as numero',
 						'siplac_curso.codigo',
 						'siplac_curso.nombre_cur',
 						'siplac_aulas.numero as aula_num',
