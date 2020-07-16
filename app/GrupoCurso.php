@@ -31,7 +31,7 @@ class GrupoCurso extends Model
     public function scopebuscar($query, $idCurso, $idGrupo)
     {
         if ($idGrupo)
-            return $query->where('SIPLAC_grupos_cursos.grupos_id', '=', "$idGrupo")
+            return $query->where('SIPLAC_grupos_cursos.grupo', '=', "$idGrupo")
                 ->where('SIPLAC_grupos_cursos.curso_id', '=', "$idCurso");
     }
     

@@ -47,6 +47,7 @@ class horarioController extends Controller
         $carr = null;
         $niv = $request->get('nivel_id');  //Busqueda por nivel 
         //$horarios = Horarios::filtro($aul, $cur, $cic, $grup, $carr, $niv);
+
         $horarios = Horarios::filtro($aul, $cur, $cic, $grup, $carr, $niv);
         $HorariosTodos = Cursos::cursoAll();  // todos los horarios 
 
@@ -230,7 +231,7 @@ class horarioController extends Controller
 
         $horaIni = $item->start_time;
         $horaFin = $item->end_time;
-        $respuesta = DB::select("SELECT func_revision_horas('$curso->id','$horaIni','$horaFin','$gruposCursos->grupos_id')");
+        $respuesta = DB::select("SELECT func_revision_horas('$curso->id','$horaIni','$horaFin','$gruposCursos->grupo')");
  
         $resultado= $this->recorreRespuesta($respuesta);
 

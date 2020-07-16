@@ -1,5 +1,5 @@
 
-  function enviaJSON(pRuta,pDatos){
+  function enviaCarreraJSON(pRuta,pDatos){
     var url = pRuta;
     var datos = pDatos;
     var datosJSON = JSON.stringify(datos);
@@ -26,6 +26,6 @@
   function setCarrera(){
 
     var carrera = $("#select_carrera option:selected").val();
-    enviaJSON('carrera/'+carrera);
+    enviaCarreraJSON('carrera/'+carrera);
 
   }

@@ -22,8 +22,7 @@ use App\Ciclo;
 use App\Cursos;
 use App\Grupos;
 use App\Carreras;
-use App\HorarioN;
-use App\GruposCursos;
+use App\GrupoCurso;
 use DB;
 
 class horarioController2 extends Controller
@@ -75,7 +74,7 @@ class horarioController2 extends Controller
         $aulas = Aulas::get();
         $cursos = Cursos::asignados();
         $ciclos = Ciclo::get();
-        $grupos = Grupos::get();
+        $grupos = GrupoCurso::get();
         $carrera = Carreras::get();
         $nivel =  ["I", "II", "III", "IV", "V"];
 

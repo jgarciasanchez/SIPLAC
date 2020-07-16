@@ -35,8 +35,7 @@ class Horarios extends Model
 						return $query->select("siplac_horarios.id as idHorario","siplac_horarios.id as id", "siplac_horarios.startTime", "siplac_horarios.endTime", "siplac_horarios.grup_cursos_id", "siplac_horarios.daysOfWeek", "siplac_horarios.ciclo_id", "siplac_horarios.aula_id")
 							->join('siplac_grupos_cursos', 'siplac_grupos_cursos.id', '=', 'siplac_horarios.grup_cursos_id')
 							->join('siplac_curso', 'siplac_curso.id', '=', 'siplac_grupos_cursos.curso_id')
-							->join('siplac_grupos', 'siplac_grupos.id', '=', 'siplac_grupos_cursos.grupos_id')
-							->where('siplac_grupos.id', '=', "$grup")->get();
+							->where('siplac_grupos_cursos.grupo', '=', "$grup")->get();
 					} else {
 						/*if ($carr!="Ninguno") {
 		            		return $query->select("siplac_horarios.id as idHorario","siplac_horarios.startTime","siplac_horarios.endTime","siplac_horarios.grup_cursos_id","siplac_horarios.daysOfWeek","siplac_horarios.ciclo_id","siplac_horarios.aula_id")
@@ -70,18 +69,15 @@ class Horarios extends Model
 			"siplac_horarios.ciclo_id", 
 			"siplac_horarios.aula_id", 
 			'siplac_carrera.nombre', 
-			'siplac_grupos.numero',
 			'siplac_grupos_cursos.nrc',
 			'siplac_curso.codigo',
 			'siplac_curso.nombre_cur',
 			'siplac_aulas.numero as aula_num',
-			'siplac_grupos.nivel',
 			'siplac_profesores.nombre1',
 			'siplac_profesores.apellido1',
 			'siplac_profesores.apellido2')
 				->join('siplac_grupos_cursos', 'siplac_grupos_cursos.id', '=', 'siplac_horarios.grup_cursos_id')
 				->join('siplac_curso', 'siplac_curso.id', '=', 'siplac_grupos_cursos.curso_id')
-				->join('siplac_grupos', 'siplac_grupos.id', '=', 'siplac_grupos_cursos.grupos_id')
 				->join('siplac_ciclo', 'siplac_ciclo.id', '=', 'siplac_horarios.ciclo_id')
 				->join('siplac_curso_profesor', 'siplac_curso_profesor.nrc_id', '=', 'siplac_grupos_cursos.id')
 				->join('siplac_profesores', 'siplac_profesores.id', '=', 'siplac_curso_profesor.profesor_id')
@@ -89,7 +85,7 @@ class Horarios extends Model
 				->join('siplac_aulas', 'siplac_aulas.id', '=', 'siplac_horarios.aula_id')
 				->where('siplac_ciclo.id', '=', "$ciclo")
 				->where('siplac_curso_profesor.tipo_asingnacion', '=', 'P')
-				->where('siplac_grupos.id', '=', "$grup")->get();
+				->where('siplac_grupos_cursos.grupo', '=', "$grup")->get();
 		} else {
 			if ($car != "Ninguno") {
 
@@ -100,18 +96,15 @@ class Horarios extends Model
                 "siplac_horarios.ciclo_id", 
                 "siplac_horarios.aula_id", 
                 'siplac_carrera.nombre', 
-                'siplac_grupos.numero',
                 'siplac_grupos_cursos.nrc',
                 'siplac_curso.codigo',
                 'siplac_curso.nombre_cur',
                 'siplac_aulas.numero as aula_num',
-                'siplac_grupos.nivel',
                 'siplac_profesores.nombre1',
                 'siplac_profesores.apellido1',
                 'siplac_profesores.apellido2')
                     ->join('siplac_grupos_cursos', 'siplac_grupos_cursos.id', '=', 'siplac_horarios.grup_cursos_id')
                     ->join('siplac_curso', 'siplac_curso.id', '=', 'siplac_grupos_cursos.curso_id')
-                    ->join('siplac_grupos', 'siplac_grupos.id', '=', 'siplac_grupos_cursos.grupos_id')
                     ->join('siplac_ciclo', 'siplac_ciclo.id', '=', 'siplac_horarios.ciclo_id')
                     ->join('siplac_curso_profesor', 'siplac_curso_profesor.nrc_id', '=', 'siplac_grupos_cursos.id')
                     ->join('siplac_profesores', 'siplac_profesores.id', '=', 'siplac_curso_profesor.profesor_id')
@@ -129,7 +122,6 @@ class Horarios extends Model
                 "siplac_horarios.ciclo_id", 
                 "siplac_horarios.aula_id", 
                 'siplac_carrera.nombre', 
-                'siplac_grupos.numero',
                 'siplac_grupos_cursos.nrc',
                 'siplac_curso.codigo',
                 'siplac_curso.nombre_cur',
@@ -140,7 +132,6 @@ class Horarios extends Model
                 'siplac_profesores.apellido2')
                     ->join('siplac_grupos_cursos', 'siplac_grupos_cursos.id', '=', 'siplac_horarios.grup_cursos_id')
                     ->join('siplac_curso', 'siplac_curso.id', '=', 'siplac_grupos_cursos.curso_id')
-                    ->join('siplac_grupos', 'siplac_grupos.id', '=', 'siplac_grupos_cursos.grupos_id')
                     ->join('siplac_ciclo', 'siplac_ciclo.id', '=', 'siplac_horarios.ciclo_id')
                     ->join('siplac_curso_profesor', 'siplac_curso_profesor.nrc_id', '=', 'siplac_grupos_cursos.id')
                     ->join('siplac_profesores', 'siplac_profesores.id', '=', 'siplac_curso_profesor.profesor_id')
@@ -159,12 +150,10 @@ class Horarios extends Model
 						"siplac_horarios.ciclo_id", 
 						"siplac_horarios.aula_id", 
 						'siplac_carrera.nombre', 
-						'siplac_grupos.numero',
 						'siplac_grupos_cursos.nrc',
 						'siplac_curso.codigo',
 						'siplac_curso.nombre_cur',
 						'siplac_aulas.numero as aula_num',
-						'siplac_grupos.nivel',
 						'siplac_profesores.nombre1',
 						'siplac_profesores.apellido1',
 						'siplac_profesores.apellido2')
@@ -175,7 +164,6 @@ class Horarios extends Model
 							->join('siplac_ciclo', 'siplac_ciclo.id', '=', 'siplac_horarios.ciclo_id')
 							->join('siplac_curso_profesor', 'siplac_curso_profesor.nrc_id', '=', 'siplac_grupos_cursos.id')
 							->join('siplac_profesores', 'siplac_profesores.id', '=', 'siplac_curso_profesor.profesor_id')
-							->join('siplac_grupos', 'siplac_grupos.id', '=', 'siplac_grupos_cursos.grupos_id')
 							->where('siplac_curso_profesor.tipo_asingnacion', '=', 'P')
 							->where('siplac_ciclo.id', '=', "$ciclo")->get();
 					}

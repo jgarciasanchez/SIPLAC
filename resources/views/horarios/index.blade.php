@@ -2,35 +2,6 @@
 
 @section('content')
 
-<?php 
-// Demonstrate how to declare 
-// global variable 
-  
-// Declaring global variable 
-/*$x = "Geeks"; 
-$y = "for"; 
-$z = "Geeks"; */
-$a = 5; 
-$b = 10; 
-  
-function concatenate() { 
-    // Using global keyword 
-    global $x, $y, $z; 
-    return $x.$y.$z; 
-} 
-  
-function add() { 
-    // Using GLOBALS['var_name'] 
-    $GLOBALS['x'] = $GLOBALS['y'] + $GLOBALS['z']; 
-} 
-  
-// Print result 
-echo concatenate(); 
-echo"\n"; 
-add(); 
-echo $GLOBALS['x']; 
-?> 
-
 <html>
 <head>
 <meta charset='utf-8' />
@@ -91,8 +62,8 @@ echo $GLOBALS['x'];
               <select name="grupos_select" id="grupos_select" class="form-control">
                 <option>Ninguno</option>
                 @foreach ($grupos as $item)
-                    <option value="{{$item->id}}">
-                      @if (request('grupo') == $item->id) selected @endif{{$item->grupo}}
+                    <option value="{{$item->grupo}}">
+                      @if (request('grupo') == $item->grupo) selected @endif{{$item->grupo}}
                     </option>
                 @endforeach
               </select>

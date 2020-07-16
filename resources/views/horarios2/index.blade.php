@@ -46,13 +46,13 @@
                 </select>
               </div>
 
-            <div class="form-group">
+              <div class="form-group">
               {!! Form::label('grupos','Grupo') !!}<!---------------Seleccion de grupo filtro------------->
               <select name="grupos_select" id="grupos_select" class="form-control">
                 <option>Ninguno</option>
                 @foreach ($grupos as $item)
-                    <option value="{{$item->id}}">
-                      @if (request('grupo_id') == $item->id) selected @endif{{$item->numero}}
+                    <option value="{{$item->grupo}}">
+                      @if (request('grupo') == $item->grupo) selected @endif{{$item->grupo}}
                     </option>
                 @endforeach
               </select>
@@ -63,7 +63,7 @@
               <select name="ciclos_select" id="ciclos_select" class="form-control" >
                 <option>Ninguno</option>
                 @foreach ($ciclos as $item)
-                  <option data-start="{{$item->fecha_inicio}}" data-end="{{$item->fecha_fin}}"  value="{{$item->id}}">{{'Ciclo:'.$item->ciclo.'  ('.$item->año.')'}}</option>
+                  <option data-start="{{$item->fecha_inicio}}" data-end="{{$item->fecha_fin}}"  value="{{$item->id}}">{{'Ciclo:'.$item->ciclo.'  ('.$item->aï¿½o.')'}}</option>
                 @endforeach
               </select>
             </div>
