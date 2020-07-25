@@ -133,12 +133,6 @@
               </div>
 
               <div class="form-group">
-                {!! Form::label('ciclos','Ciclo') !!}<!---------------Seleccion de ciclo Modal------------>
-                <select  id="ciclos_select_modal" id="ciclos_select_modal"  class="form-control"></select>
-              </div>
-
-
-              <div class="form-group">
                 {!! Form::label('dias','dias') !!}<!---------------Seleccion de dias Modal------------>
                 <select name="dias" id="dias" class="form-control">
                     <option value="1">Lunes</option>

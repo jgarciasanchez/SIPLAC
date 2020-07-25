@@ -42,7 +42,7 @@ class horarioController extends Controller
     {
         $cur = $request->get('cursos_select');  //Busqueda por curso
         $aul = $request->get('aulas_select');  //Busqueda por aula
-        $cic = $request->get('ciclos_select');  //Busqueda por ciclo
+        $cic = Ciclo::where('estado','=','A')->first(); //Busqueda por ciclo
         $grup = $request->get('grupos_select'); //Busqueda por grupo
         $carr = null;
         $niv = $request->get('nivel_id');  //Busqueda por nivel 
@@ -62,18 +62,12 @@ class horarioController extends Controller
                     $this->cargaInformacion($item);
                 } 
             }else{
-                if($cic!="Ninguno"){
-                    foreach ($horarios as $item){
-                        $this->cargaInformacion($item);
-                    } 
-                }else{
                     if($grup!="Ninguno"){
                         foreach ($horarios as $item){
                             $this->cargaInformacion($item);
                         } 
                     }
                 }
-            }
         }
 
        $cur1="4";
@@ -84,17 +78,15 @@ class horarioController extends Controller
 
         $aulas = Aulas::get();
         $cursos = Cursos::asignados();
-        $ciclos = Ciclo::get();
+        $ciclos = Ciclo::where('estado','=','A')->first(); 
         $grupos = GruposCursos::get();
         $carrera = Carreras::get();
         $nivel =  ["I","II","III","IV","V"];
 
-        foreach ($ciclos as $item){
-            $timestamp = $item->fecha_inicio;
-            $dateValue = strtotime($item->fecha_inicio);                     
+            $timestamp = $ciclos->fecha_inicio;
+            $dateValue = strtotime($ciclos->fecha_inicio);                     
             $yr = date("Y", $dateValue) ." ";
             $item['año'] = $yr;
-        }
        
         return view('horarios.index',compact('cursos','aulas','ciclos','grupos','carrera','nivel','horarios','HorariosTodos'));
     }

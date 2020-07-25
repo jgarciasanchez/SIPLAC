@@ -104,13 +104,11 @@ function obtenerEventosDelete(calendar){
 
         const dateStart = new Date(arg.event.start);
         const dateEnd = new Date(arg.event.end);
-        $("#ciclos_select_modal").html($("#ciclos_select").html());
         $("#aulas_select_modal").html($("#aulas_select").html());
         $("#cursos_select_modal").html($("#cursos_select").html());
         $('[id$=lblHini]').text(dateStart.toLocaleTimeString('it-IT'));
         $('[id$=lblHfin]').text(dateEnd.toLocaleTimeString('it-IT'));
         $("#dias").val(dateStart.getDay()); 
-        $("#ciclos_select_modal").val(arg.event.extendedProps.ciclo_id).change();
         $("#aulas_select_modal").val(arg.event.extendedProps.aula_id).change();
         $("#cursos_select_modal").val(arg.event.extendedProps.curso_id).change();
         $("#ModalInsercion").modal(); 
@@ -125,14 +123,12 @@ function obtenerEventosDelete(calendar){
             return oldText === 'Vista horario' ? 'Asignacion a horarios' : oldText;
         });
 
-        $("#ciclos_select_modal").html($("#ciclos_select").html());
         $("#aulas_select_modal").html($("#aulas_select").html());
         $("#cursos_select_modal").html($("#cursos_select").html());
         $('[id$=lblHini]').text(arg.start.toLocaleTimeString('it-IT'));
         $('[id$=lblHfin]').text(arg.end.toLocaleTimeString('it-IT'));
         $("#dias").val(arg.start.getDay());
         //  Este bloque es para que las opciones seleccionadas antes(si es que hay) se carguen en el modal
-        $("#ciclos_select_modal").val($("#ciclos_select option:selected").val()).change();
         $("#aulas_select_modal").val($("#aulas_select option:selected").val()).change();
         $("#cursos_select_modal").val($("#cursos_select option:selected").val()).change();
         $("#botonInserta").show();
@@ -164,7 +160,7 @@ function obtenerEventosDelete(calendar){
     $("#btnGuardar").click(function (e) {  //Metodo que toma todos los eventos del calendario y los envia para ser almacenados en la base de datos
       var eventos = obtenerEventos(calendar);
       var url = 'ajaxSolicitud';
-
+      console.log(eventos);
       enviaJSON(url,eventos,calendar);
 
     });
@@ -185,10 +181,10 @@ function obtenerEventosDelete(calendar){
         startTime: $('#lblHini').text(),
         endTime: $('#lblHfin').text(),
         curso_id:$("#cursos_select_modal option:selected").val(),
-        ciclo_id:$("#ciclos_select_modal option:selected").val(),
+        ciclo_id:$("#cursos_select").data("ciclo"),
         aula_id:$("#aulas_select_modal option:selected").val(),
-        startRecur: $("#ciclos_select_modal option:selected").data("start"),
-        endRecur:$("#ciclos_select_modal option:selected").data("end"),
+        startRecur: $("#cursos_select").data("start"),
+        endRecur:$("#cursos_select").data("end"),
         color: $("#cursos_select_modal option:selected").data("color"),
         id: $("#cursos_select_modal option:selected").data("nrc")+[ $('select[name=dias]').val()],
         daysOfWeek: [ $('select[name=dias]').val()],

@@ -42,9 +42,12 @@ class AsignacionCursosController extends Controller
      */
     public function index(Request $request)
     {
-        $list = GrupoCurso::orderBy('id')
-        ->paginate(99999999);
 
+        $ciclo = Ciclo::where('estado','=','A')->first();
+
+
+        $list = GrupoCurso::where('ciclo_id','=',$ciclo->id)->orderBy('id')
+        ->paginate(99999999);
         
         foreach($list as $item){
             $profPermanente = CursoProfesor::where('nrc_id','=',$item->id)->where('tipo_asingnacion','=','P')->first();
@@ -285,7 +288,7 @@ class AsignacionCursosController extends Controller
         }
 
         if($per2 !="Ninguno"){
-            if($profPermanente != null){ 
+            if($segundoProfPermanente  != null){ 
                 DB::table('siplac_curso_profesor')
                 ->where('nrc_id', $grupoCurso->id)
                 ->where('tipo_asingnacion', 'P2')
@@ -296,12 +299,12 @@ class AsignacionCursosController extends Controller
                     'tipo_asingnacion' => 'P2',
                     'estado' => 'A',
                     'nrc_id' => $grupoCurso->id,
-                    'profesor_id' => $data['profesorPermanente_id']
+                    'profesor_id' => $data['segundoProfesorPermanente_id']
                 ]);
             }
         }
         else{
-            if($segundoProfPermanente != null){ $profPermanente->delete(); };
+            if($segundoProfPermanente != null){ $segundoProfPermanente->delete(); };
         }
         
         

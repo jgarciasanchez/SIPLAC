@@ -22,9 +22,6 @@
 				<thead class="thead-dark">
 					<th scope="row">NRC</th>
 					<th scope="row">Curso</th>
-					<th scope="row">Carrera</th>
-					<th scope="row">Grupo</th>
-					<th scope="row">Ciclo</th>
 					<th scope="row">Profesor Permanente</th>
 					<th scope="row">Profesor Permanente2</th>
 					<th scope="row">Acciones</th>
@@ -34,9 +31,6 @@
 					<tr>
 						<td>{{ $item->nrc }}</td>
 						<td>{{ $item->nombreCurso}}</td>
-						<td>{{ $item->carrera}}</td>
-						<td>{{ $item->nombreGrupo}}</td>
-						<td>{{ $item->nombreCiclo }}</td>
 						<td>{{ $item->nombreProfe }}</td>
 						<td>{{ $item->nombreProfe2 }}</td>
 						<td class="form-inline">

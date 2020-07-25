@@ -47,10 +47,10 @@
       <div id='external-events'> <!---- CODIGO CALENDAR LLAMADO A UNAS FUNCIONES --------------------------------------------->
             <div class="form-group">      <!---------------Seleccion de Cursos filtro------------->
               {!! Form::label('cursos','Curso') !!}
-              <select name="cursos_select" id="cursos_select" class="form-control">
+              <select data-ciclo="{{$ciclos->id}}" data-start="{{$ciclos->fecha_inicio}}" data-end="{{$ciclos->fecha_fin}}" name="cursos_select" id="cursos_select" class="form-control">
                 <option>Ninguno</option>
                 @foreach ($cursos as $item)
-                      <option data-color="{{$item->color}}" data-nrc="{{$item->nrc}}" value="{{ $item->id}}">
+                      <option   data-color="{{$item->color}}" data-nrc="{{$item->nrc}}" value="{{ $item->id}}">
                         @if (request('cursos_id') == $item->id) selected @endif{{$item->nombre_cur.' ('.$item->nrc.')'}}
                       </option>
                 @endforeach
@@ -81,15 +81,6 @@
               </select>
             </div>
 
-              <div class="form-group">
-                {!! Form::label('ciclos','Ciclo') !!}<!---------------Seleccion de ciclo Modal------------>
-                <select name="ciclos_select" id="ciclos_select" class="form-control" >
-                  <option>Ninguno</option>
-                  @foreach ($ciclos as $item)
-                    <option data-start="{{$item->fecha_inicio}}" data-end="{{$item->fecha_fin}}"  value="{{$item->id}}">{{'Ciclo:'.$item->ciclo.'  ('.$item->año.')'}}</option>
-                  @endforeach
-                </select>
-              </div>
 
             <br>
             <div class="form-group">
@@ -111,7 +102,6 @@
   <div class="form-group">
       <script language="javascript" type="text/javascript"> // INSERTA EN ELSJON AL EJECUTAR LA VISTA DE FORMA QUE FULLCALENDAR LO USE
 
-          console.log("AAAAAAAAAAAsAAAAAAAAAAAAAAAAAAAA"+ $('#prueba').text());
           var obj = <?php echo json_encode($horarios); ?>;
           var horario = <?php echo json_encode($HorariosTodos); ?>;
           insertJson(obj,horario);
@@ -149,12 +139,6 @@
                 {!! Form::label('aula','Aula') !!} <!---------------Seleccion de Aulas Modal------------>
                 <select  name="aulas_select_modal" id="aulas_select_modal" class="form-control"></select>
               </div>
-
-              <div class="form-group">
-                {!! Form::label('ciclos','Ciclo') !!}<!---------------Seleccion de ciclo Modal------------>
-                <select  id="ciclos_select_modal" id="ciclos_select_modal"  class="form-control"></select>
-              </div>
-
 
               <div class="form-group">
                 {!! Form::label('dias','dias') !!}<!---------------Seleccion de dias Modal------------>
