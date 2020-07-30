@@ -62,7 +62,7 @@ class horarioController extends Controller
                 }     
             }
         
-        $curs = Cursos::get();
+
         $aulas = Aulas::get();
         $cursos = Cursos::asignados();
         $ciclos = Ciclo::where('estado','=','A')->first(); 
@@ -70,7 +70,7 @@ class horarioController extends Controller
         $carrera = Carreras::get();
         $profesores = Profesores::get();
         $nivel =  ["I","II","III","IV","V"];
-            dd($cursos);
+        
             $timestamp = $ciclos->fecha_inicio;
             $dateValue = strtotime($ciclos->fecha_inicio);                     
             $yr = date("Y", $dateValue) ." ";

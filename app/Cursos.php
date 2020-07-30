@@ -31,13 +31,9 @@ class Cursos extends Model
 
     public function scopeasignados($query){
          
-        $cursos = $query->select("siplac_curso.nombre_cur","siplac_curso.color","siplac_curso.codigo","siplac_curso.creditos","siplac_curso.horas","siplac_curso.horas_contacto","siplac_curso.estado","siplac_curso.are_id","siplac_curso.carrera_id","siplac_grupos_cursos.nrc","siplac_grupos_cursos.id")
+        return $query->select("siplac_curso.nombre_cur","siplac_curso.color","siplac_curso.codigo","siplac_curso.creditos","siplac_curso.horas","siplac_curso.horas_contacto","siplac_curso.estado","siplac_curso.are_id","siplac_curso.carrera_id","siplac_grupos_cursos.nrc","siplac_grupos_cursos.id")
         ->join ('siplac_grupos_cursos', 'siplac_grupos_cursos.curso_id','=','siplac_curso.id')
         ->get();
-
-        dd($cursos);
-        
-        return $cursos;
     }
 
     public function scopecursoAll($query){
