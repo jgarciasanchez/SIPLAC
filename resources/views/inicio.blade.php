@@ -3,6 +3,7 @@
 <?php
     use App\Carreras;
     $carreras = Carreras::get();
+    session(['carrera' => 'T']);
     //if(session('carrera') != null){ dd('hola');};
 ?>
 
@@ -26,9 +27,9 @@
 							<div class="col-sm-2">	
                                 <div class="form-group">
                                     <form action="" method="POST" name="myform" onchange="setCarrera()">
-
                                     {!! Form::label('Carrera','Carrera') !!}
                                         <select id="select_carrera" name="select_carrera" class="form-control" >
+                                            <option value='T'>Todas Las Carreras</option>
                                             @foreach ($carreras as $item)
                                             <option value={{$item->id}}>{{$item->nombre}}</option>
                                             @endforeach

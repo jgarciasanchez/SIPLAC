@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Ciclo;
+use DB;
 
 class Horarios extends Model
 {
@@ -50,6 +52,54 @@ class Horarios extends Model
 		}
 	}
 
+	public function scopefiltrar($query, $aul, $cur, $grup,$prof){   //Guti: Nueva Funcion de filtrar 
+
+		$cic = Ciclo::where('estado','=','A')->first(); //Busqueda por ciclo
+		$carr = session('carrera');                     //Busqueda pr carrera
+
+		$horarios = 
+		$query->select("siplac_horarios.id as idHorario","siplac_horarios.id as id", "siplac_horarios.startTime", "siplac_horarios.endTime", "siplac_horarios.grup_cursos_id", "siplac_horarios.daysOfWeek", "siplac_horarios.ciclo_id", "siplac_horarios.aula_id","siplac_curso.carrera_id",
+		DB::raw("(select cp_1.profesor_id from siplac_curso_profesor as cp_1 where cp_1.tipo_asingnacion = 'P' and cp_1.nrc_id = gc.id) as prof1_id"),
+		DB::raw("(select cp_2.profesor_id from siplac_curso_profesor as cp_2 where cp_2.tipo_asingnacion = 'P2' and cp_2.nrc_id = gc.id) as prof2_id"))
+		->join('siplac_grupos_cursos as gc', 'gc.id', '=', 'siplac_horarios.grup_cursos_id')		
+		->join('siplac_curso', 'siplac_curso.id', '=', 'gc.curso_id')
+		->join('siplac_aulas', 'siplac_aulas.id', '=', 'siplac_horarios.aula_id')
+		->join('siplac_ciclo', 'siplac_ciclo.id', '=', 'siplac_horarios.ciclo_id')
+		->groupBy('siplac_horarios.id','siplac_horarios.startTime','siplac_horarios.endTime',"siplac_horarios.grup_cursos_id", "siplac_horarios.daysOfWeek", "siplac_horarios.ciclo_id", "siplac_horarios.aula_id","siplac_curso.carrera_id","gc.id")
+		->get(); 
+
+		
+		if($prof!="Ninguno"){
+			//$horarios = $horarios->where('prof1_id or prof2_id','=',$prof);
+			$counter = 0;
+			foreach($horarios as $horario){
+				if(($horario['prof1_id'] != $prof) && ($horario['prof2_id'] != $prof)){
+					$horarios->forget($counter);
+				}
+				$counter += 1;
+			}
+		}
+
+		if($cic!="Ninguno"){
+			$horarios = $horarios->where('ciclo_id','=',$cic->id);
+		}
+
+		if($carr!=null){
+			if($carr!="T"){
+				$horarios = $horarios->where('carrera_id','=',$carr);
+			}
+		}	
+
+		if($aul!="Ninguno"){
+			$horarios = $horarios->where('aula_id','=',$aul);
+		}	
+
+		return $horarios;
+	}
+
+
+	
+
 	public function scopeSemanal($query, $ciclo, $ano)
 	{
 		return $query->select("siplac_horarios.startTime", "siplac_horarios.startTime", "siplac_horarios.daysOfWeek")
@@ -59,7 +109,7 @@ class Horarios extends Model
 			->where("siplac_ciclo.fecha_inicio", "like", "$ano%");
 	}
 
-	public function scopefiltro2($query, $car, $ciclo, $grup)
+	public function scopefiltro2($query, $car, $ciclo, $grup)   
 	{
 		//dd($ciclo);
 		if ($grup != "Ninguno" and $ciclo != "Ninguno") {

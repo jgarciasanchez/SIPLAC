@@ -21,6 +21,7 @@ use App\Aulas;
 use App\Ciclo;
 use App\Cursos;
 use App\Carreras;
+use App\Profesores;
 use App\HorarioN;
 use App\GruposCursos;
 use DB;
@@ -40,55 +41,51 @@ class horarioController extends Controller
 
     public function index(Request $request)
     {
-        $cur = $request->get('cursos_select');  //Busqueda por curso
-        $aul = $request->get('aulas_select');  //Busqueda por aula
-        $cic = Ciclo::where('estado','=','A')->first(); //Busqueda por ciclo
-        $grup = $request->get('grupos_select'); //Busqueda por grupo
-        $carr = null;
-        $niv = $request->get('nivel_id');  //Busqueda por nivel 
-        //$horarios = Horarios::filtro($aul, $cur, $cic, $grup, $carr, $niv);
 
-        $horarios = Horarios::filtro($aul, $cur, $cic, $grup, $carr, $niv);
-        $HorariosTodos = Cursos::cursoAll();  // todos los horarios 
+        $cur = $aul = $grup = $prof = 'Ninguno';
 
-        if($cur!="Ninguno"){
-            //dd($cur);
-            foreach ($horarios as $item){
-                $this->cargaInformacion($item);
-            }     
-        }else{
-            if($aul!="Ninguno"){
-                foreach ($horarios as $item){
-                    $this->cargaInformacion($item);
-                } 
-            }else{
-                    if($grup!="Ninguno"){
-                        foreach ($horarios as $item){
-                            $this->cargaInformacion($item);
-                        } 
-                    }
-                }
+        if(($request->get('cursos_select')) != null){
+            $cur = $request->get('cursos_select');  //Busqueda por curso
+            $aul = $request->get('aulas_select');  //Busqueda por aula
+            $grup = $request->get('grupos_select'); //Busqueda por grupo
+            $prof = $request->get('profesor_select');
         }
 
-       $cur1="4";
-       $horaIni = "10:00:00";
-       $horaFin = "11:00:00";
-       $queries = DB::select("SELECT func_revision_horas($cur1,'$horaIni','$horaFin')");
-       //dd($queries);
-
+        $horarioBusqueda = null;
+        $HorariosTodos = Cursos::cursoAll();  // todos los horarios 
+        //dd($aul);
+        
+            if(   ($cur != 'Ninguno') || ($aul != 'Ninguno') || ($grup != 'Ninguno') || ($prof != 'Ninguno')  ){
+                $horarioBusqueda = Horarios::filtrar($aul, $cur, $grup, $prof);
+                foreach ($horarioBusqueda as $item){
+                    $this->cargaInformacion($item);
+                }     
+            }
+        
+        $curs = Cursos::get();
         $aulas = Aulas::get();
         $cursos = Cursos::asignados();
         $ciclos = Ciclo::where('estado','=','A')->first(); 
         $grupos = GruposCursos::get();
         $carrera = Carreras::get();
+        $profesores = Profesores::get();
         $nivel =  ["I","II","III","IV","V"];
-
+            dd($cursos);
             $timestamp = $ciclos->fecha_inicio;
             $dateValue = strtotime($ciclos->fecha_inicio);                     
             $yr = date("Y", $dateValue) ." ";
             $item['año'] = $yr;
+
+
+
+        if(session('carrera') != null){
+            if(session('carrera')!='T'){
+
+                //$cursos = $cursos->where('carrera_id','=','session');
+            }
+        }
        
-        return view('horarios.index',compact('cursos','aulas','ciclos','grupos','carrera','nivel','horarios','HorariosTodos'));
+        return view('horarios.index',compact('cursos','aulas','ciclos','carrera','grupos','profesores','carrera','nivel','horarioBusqueda','HorariosTodos'));
     }
 
     public function guardarEventos(Request $request)

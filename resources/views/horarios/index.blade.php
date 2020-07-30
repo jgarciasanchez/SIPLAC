@@ -48,7 +48,7 @@
             <div class="form-group">      <!---------------Seleccion de Cursos filtro------------->
               {!! Form::label('cursos','Curso') !!}
               <select data-ciclo="{{$ciclos->id}}" data-start="{{$ciclos->fecha_inicio}}" data-end="{{$ciclos->fecha_fin}}" name="cursos_select" id="cursos_select" class="form-control">
-                <option>Ninguno</option>
+                <option >Ninguno</option>
                 @foreach ($cursos as $item)
                       <option   data-color="{{$item->color}}" data-nrc="{{$item->nrc}}" value="{{ $item->id}}">
                         @if (request('cursos_id') == $item->id) selected @endif{{$item->nombre_cur.' ('.$item->nrc.')'}}
@@ -81,6 +81,17 @@
               </select>
             </div>
 
+            <div class="form-group">
+              {!! Form::label('profesor','Profesor') !!} <!---------------Seleccion de Profesores filtro------------->
+              <select name="profesor_select" id="profesor_select" class="form-control">
+                <option>Ninguno</option>
+                @foreach ($profesores as $item)
+                    <option value="{{$item->id}}">
+                      @if (request('profesor_id') == $item->id) selected @endif{{$item->nombre1.' '.$item->apellido1.' '.$item->apellido2}}
+                    </option>
+                @endforeach
+              </select>
+            </div>
 
             <br>
             <div class="form-group">
@@ -102,7 +113,7 @@
   <div class="form-group">
       <script language="javascript" type="text/javascript"> // INSERTA EN ELSJON AL EJECUTAR LA VISTA DE FORMA QUE FULLCALENDAR LO USE
 
-          var obj = <?php echo json_encode($horarios); ?>;
+          var obj = <?php echo json_encode($horarioBusqueda); ?>;
           var horario = <?php echo json_encode($HorariosTodos); ?>;
           insertJson(obj,horario);
       </script>
