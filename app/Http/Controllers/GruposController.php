@@ -95,8 +95,12 @@ class GruposController extends Controller
     public function edit($id)
     {
         $grupos = Grupos::find($id);
+        $GrupoGurso= GruposCursos
         $nivel =  ["I","II","III","IV","V"];
-        return view('grupos.edit',compact('grupos','nivel'));    
+        $cicloAc = Grupos::find($grupos->ciclo_id);
+        $cursoAc = Cursos::find($cursos->curso_id);
+        dd($cursoAc);
+        return view('grupos.edit',compact('grupos','nivel','cicloAc','cursoAc'));    
     }
     /**
      * Update the specified resource in storage.

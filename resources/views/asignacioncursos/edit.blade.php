@@ -1,5 +1,4 @@
 
-
 @extends('layouts.app')
 @section('content') 
 @include('asignacioncursos.fragment.error')	
@@ -24,6 +23,7 @@
 									<div class="form-group">
 										{!! Form::label('Ciclo','Ciclo') !!}
 										<select name="ciclo_id" class="form-control">
+										<option value={{$cicloAc->id}}>{{$cicloAc->ciclo.'('.date("Y",  strtotime($cicloAc->fecha_inicio)).')'}}</option>
 											@foreach ($ciclos as $item)
 											<option value={{$item->id}}>{{$item->id}}</option>
 											@endforeach
@@ -39,6 +39,7 @@
 									<div class="form-group">
 										{!! Form::label('Curso','Curso') !!}
 										<select name="curso_id" class="form-control">
+											<option value={{$cursoAc->id}}>{{$cursoAc->nombre_cur}}</option>
 											@foreach ($cursos as $item)
 											<option value={{$item->id}}>{{$item->nombre_cur}}</option>
 											@endforeach

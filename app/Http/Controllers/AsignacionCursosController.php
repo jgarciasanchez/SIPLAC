@@ -184,6 +184,12 @@ class AsignacionCursosController extends Controller
         $cursos =Cursos::get();
         $profesores = Profesores::get();
 
+        
+
+
+        $cicloAc = Ciclo::find($grupoCurso ->ciclo_id);
+        $cursoAc = Cursos::find($grupoCurso ->curso_id);
+  
         $profPermanente = CursoProfesor::where('nrc_id','=',$grupoCurso->id)->where('tipo_asingnacion','=','P')->first();
         $segundoProfPermanente = CursoProfesor::where('nrc_id','=',$grupoCurso->id)->where('tipo_asingnacion','=','P2')->first();
         $profSuplente = CursoProfesor::where('nrc_id','=',$grupoCurso->id)->where('tipo_asingnacion','=','T')->first();
@@ -207,7 +213,7 @@ class AsignacionCursosController extends Controller
              $profeT=null;
         }
         //dd($segundoProfPermanente);
-        return view('asignacioncursos.edit',compact('nrc','profesores','ciclos','cursos','grupoCurso','profe','profeT','segundoProfe'));
+        return view('asignacioncursos.edit',compact('nrc','profesores','ciclos','cursos','grupoCurso','profe','profeT','segundoProfe','cicloAc','cursoAc'));
 
     }
 
